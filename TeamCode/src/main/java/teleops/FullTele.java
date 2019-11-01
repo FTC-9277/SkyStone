@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import Vision.Sampler;
+import recorder.Player;
 import robot.ExplosivesRobot;
 
 @TeleOp(name = "FullTeleOp")
@@ -48,17 +49,8 @@ public class FullTele extends OpMode {
             }
         }
 
-
-//        if(gamepad2.left_bumper) {
-//            robot.hook();
-//        } else if (gamepad2.right_bumper) {
-//            robot.unhook();
-//        }
-//
-//        if(gamepad2.left_trigger >= 0.3) {
-//            robot.intake.setPower(gamepad2.left_trigger);
-//        } else if(gamepad2.right_trigger >= 0.3) {
-//            robot.intake.setPower(gamepad2.right_trigger);
+//        if(Math.abs(gamepad2.right_stick_y) > 0.2) {
+//            robot.intake.setPower(gamepad2.right_stick_y);
 //        } else {
 //            robot.intake.setPower(0.0);
 //        }

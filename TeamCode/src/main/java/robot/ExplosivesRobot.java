@@ -20,7 +20,8 @@ public class ExplosivesRobot {
     //    public DcMotor intake;
     public Gyro gyro;
     public Servo hook, leftI, rightI;
-
+//    public CRServo intake;
+    
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
     DriveTrainType driveTrain;
@@ -47,7 +48,7 @@ public class ExplosivesRobot {
         leftI = opMode.hardwareMap.get(Servo.class, "leftI");
         rightI = opMode.hardwareMap.get(Servo.class, "rightI");
 
-//        intake = opMode.hardwareMap.get(DcMotor.class, "intake");
+//        intake = opMode.hardwareMap.get(CRServo.class, "intake");
 
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
 
