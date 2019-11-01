@@ -13,3 +13,14 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+
+android {
+    externalNativeBuild {
+        cmake {
+            path 'src/main/jni/CMakeLists.txt'
+        }
+    }
+    defaultConfig.ndk{
+        moduleName "skystone"
+    }
+}
