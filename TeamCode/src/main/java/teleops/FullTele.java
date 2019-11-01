@@ -40,6 +40,15 @@ public class FullTele extends OpMode {
             robot.hook();
         }
 
+        if(Math.abs(gamepad2.left_stick_y) > 0.2) {
+            if(gamepad2.left_stick_y < 0) {
+                robot.intakeDown();
+            } else {
+                robot.intakeUp();
+            }
+        }
+
+
 //        if(gamepad2.left_bumper) {
 //            robot.hook();
 //        } else if (gamepad2.right_bumper) {

@@ -17,9 +17,9 @@ public class ExplosivesRobot {
     private OpMode opMode = null;
 
     public DcMotor fleft, bleft, bright, fright;//, intake;
-//    public DcMotor intake;
+    //    public DcMotor intake;
     public Gyro gyro;
-    public Servo hook;
+    public Servo hook, leftI, rightI;
 
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
@@ -43,6 +43,9 @@ public class ExplosivesRobot {
         bleft = opMode.hardwareMap.get(DcMotor.class, "bleft");
         bright = opMode.hardwareMap.get(DcMotor.class, "bright");
         fright = opMode.hardwareMap.get(DcMotor.class, "fright");
+
+        leftI = opMode.hardwareMap.get(Servo.class, "leftI");
+        rightI = opMode.hardwareMap.get(Servo.class, "rightI");
 
 //        intake = opMode.hardwareMap.get(DcMotor.class, "intake");
 
@@ -167,6 +170,16 @@ public class ExplosivesRobot {
         return (fright.getCurrentPosition()+bright.getCurrentPosition())/2;
     }
 
+    public void intakeUp() {
+        leftI.setPosition(leftI.getPosition()+0.01);
+        rightI.setPosition(rightI.getPosition()-0.01);
+    }
+
+    public void intakeDown() {
+        leftI.setPosition(leftI.getPosition()-0.01);
+        rightI.setPosition(rightI.getPosition()+0.01);
+    }
+
 
     public void hook() {
         hook.setPosition(1.0);
@@ -177,7 +190,7 @@ public class ExplosivesRobot {
     }
 
     ///INCOMPLETE
-    public void driveStraight ( int ticks){
+    public void driveStraight(int ticks) {
 
         double SPEED = 0.75;
 
