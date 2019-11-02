@@ -19,9 +19,9 @@ public class ExplosivesRobot {
     public DcMotor fleft, bleft, bright, fright;//, intake;
     //    public DcMotor intake;
     public Gyro gyro;
-    public Servo hook, leftI, rightI;
+    public Servo hook, cap, leftI, rightI;
 //    public CRServo intake;
-    
+
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
     DriveTrainType driveTrain;
@@ -52,6 +52,8 @@ public class ExplosivesRobot {
 
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
 
+        cap = opMode.hardwareMap.get(Servo.class, "capstone");
+
 //        intake = opMode.hardwareMap.get(DcMotor.class, "intake");
 //        left = opMode.hardwareMap.get(CRServo.class, "left");
 ////        right = opMode.hardwareMap.get(CRServo.class, "right");
@@ -66,6 +68,8 @@ public class ExplosivesRobot {
         fright.setDirection(DcMotorSimple.Direction.REVERSE);
         bright.setDirection(DcMotorSimple.Direction.REVERSE);
 //        left.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
         unhook();
     }
@@ -151,12 +155,12 @@ public class ExplosivesRobot {
         stop();
     }
 
-    private void lDrive(double speed) {
+    public void lDrive(double speed) {
         bleft.setPower(speed);
-        bright.setPower(speed);
+        fleft.setPower(speed);
     }
 
-    private void rDrive(double speed) {
+    public void rDrive(double speed) {
         bright.setPower(speed);
         fright.setPower(speed);
     }
@@ -172,22 +176,30 @@ public class ExplosivesRobot {
     }
 
     public void intakeUp() {
-        leftI.setPosition(leftI.getPosition()+0.01);
-        rightI.setPosition(rightI.getPosition()-0.01);
+        leftI.setPosition(1.0);
+        rightI.setPosition(0.0);
     }
 
     public void intakeDown() {
-        leftI.setPosition(leftI.getPosition()-0.01);
-        rightI.setPosition(rightI.getPosition()+0.01);
+        leftI.setPosition(0.0);
+        rightI.setPosition(1.0);
     }
 
 
     public void hook() {
-        hook.setPosition(1.0);
+        hook.setPosition(0.625);
     }
 
     public void unhook() {
         hook.setPosition(0.0);
+    }
+
+    public void dropCapstone() {
+        cap.setPosition(0.0);
+    }
+
+    public void liftCapstone() {
+        cap.setPosition(1.0);
     }
 
     ///INCOMPLETE

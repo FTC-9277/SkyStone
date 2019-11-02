@@ -1,14 +1,18 @@
 package teleops;
 
+import android.media.MediaPlayer;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import Vision.Sampler;
-import recorder.Player;
+import org.firstinspires.ftc.teamcode.Player;
+import org.firstinspires.ftc.teamcode.R;
+
 import robot.ExplosivesRobot;
 
-@TeleOp(name = "FullTeleOp")
-public class FullTele extends OpMode {
+@TeleOp(name = "FullTeleOp BRUH")
+public class FullTeleBruh extends OpMode {
 
     ExplosivesRobot robot;
 
@@ -18,10 +22,15 @@ public class FullTele extends OpMode {
         robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 //        sampler = new Sampler(this);
+        player = MediaPlayer.create(hardwareMap.appContext, R.raw.bruh);
     }
 
 //    int vision = -12;
 //    Sampler sampler;
+
+    boolean bruh = false;
+
+    MediaPlayer player;
 
     @Override
     public void loop() {
@@ -56,6 +65,17 @@ public class FullTele extends OpMode {
             robot.liftCapstone();
         } else if (gamepad2.dpad_up) {
             robot.dropCapstone();
+        }
+
+
+        if(gamepad2.b) {
+            if(!bruh) {
+                bruh = true;
+                player.seekTo(0);
+                player.start();
+            }
+        } else {
+            bruh = false;
         }
 
 //        if(Math.abs(gamepad2.right_stick_y) > 0.2) {

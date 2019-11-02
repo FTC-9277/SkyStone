@@ -23,25 +23,29 @@ public class VisionStoneGrab extends LinearOpMode {
         int stone = 1;
 
         if(sample.sample()) {
+            telemetry.addData("Vision: ", true);
             stone = 1;
         } else {
-            robot.strafe(0.5, ExplosivesRobot.Direction.LEFT);
-            wait(500);
-
-            robot.stop();
-
-            if(sample.sample()) {
-                stone = 2;
-            } else {
-                robot.strafe(0.5, ExplosivesRobot.Direction.LEFT);
-                wait(500);
-
-                robot.stop();
-
-                if(sample.sample()) {
-                    stone = 3;
-                }
-            }
+//            telemetry.addData("Vision: ", false);
+//            robot.strafe(0.5, ExplosivesRobot.Direction.RIGHT);
+//            wait(500);
+//
+//            robot.stop();
+//
+//            if(sample.sample()) {
+//                stone = 2;
+//            } else {
+//                robot.strafe(0.5, ExplosivesRobot.Direction.RIGHT);
+//                wait(500);
+//
+//                robot.stop();
+//
+//                if(sample.sample()) {
+//                    stone = 3;
+//                }
+//            }
+            robot.drive(-0.5);
+            wait(5000);
         }
 
         robot.drive(0.6);

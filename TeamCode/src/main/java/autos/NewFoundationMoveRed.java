@@ -18,28 +18,27 @@ public class NewFoundationMoveRed extends LinearOpMode {
 
         waitForStart();
 
-        robot.strafe(0.5, ExplosivesRobot.Direction.RIGHT);
-        wait(1500);
-        robot.stop();
+        robot.drive(-0.5);
+        wait(1250);
 
-        wait(100);
+        robot.stop();
 
         robot.hook();
         wait(1000);
 
-        robot.turn(0.5, ExplosivesRobot.Direction.LEFT);
-        wait(1000);
-
-        robot.drive(-0.5);
-        wait(1500);
+//        robot.drive(0.8);
+        robot.lDrive(-1.0);
+        robot.rDrive(-0.3);
+        wait(1700);
 
         robot.stop();
+        wait(500);
 
         robot.unhook();
         wait(1000);
 
-        robot.drive(0.5);
-        wait(1000);
+        robot.strafe(0.5, ExplosivesRobot.Direction.RIGHT);
+        wait(3000);
 
         robot.stop();
 
