@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "Dance")
+@Autonomous(name = "Dance", group = "other")
 public class DancingAuto extends LinearOpMode {
 
     ExplosivesRobot robot;

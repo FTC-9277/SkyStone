@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.R;
 
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "Null Auto")
+@Autonomous(name = "Null Auto", group = "other")
 public class NullAuto extends LinearOpMode {
 
     Player player = null;

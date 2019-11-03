@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import Vision.Sampler;
 import robot.ExplosivesRobot;
 
-@TeleOp(name = "Vision TeleOp")
+//@TeleOp(name = "Vision TeleOp")
 public class VisionTeleOp extends OpMode {
 
 //    ExplosivesRobot robot;

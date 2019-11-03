@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "RED - Untested Found. Move")
+@Autonomous(name = "RED - Found. Move", group = "foundation")
 public class NewFoundationMoveRed extends LinearOpMode {
 
     ExplosivesRobot robot;

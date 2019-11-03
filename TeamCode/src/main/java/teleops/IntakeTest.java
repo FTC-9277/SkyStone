@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import robot.ExplosivesRobot;
 
-@TeleOp(name = "Intake Test")
+//@TeleOp(name = "Intake Test")
 public class IntakeTest extends OpMode {
 
     DcMotor intake = null;

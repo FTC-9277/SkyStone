@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.R;
 
 import robot.ExplosivesRobot;
 
-@TeleOp(name = "FullTeleOp BRUH")
-public class FullTeleBruh extends OpMode {
+@TeleOp(name = "FullTeleOp with sounds")
+public class FullTeleWithSounds extends OpMode {
 
     ExplosivesRobot robot;
 
@@ -23,14 +23,17 @@ public class FullTeleBruh extends OpMode {
         robot.init();
 //        sampler = new Sampler(this);
         player = MediaPlayer.create(hardwareMap.appContext, R.raw.bruh);
+        cantinaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.cantina);
     }
 
 //    int vision = -12;
 //    Sampler sampler;
 
     boolean bruh = false;
+    boolean cantina = false;
 
     MediaPlayer player;
+    MediaPlayer cantinaPlayer;
 
     @Override
     public void loop() {
@@ -67,7 +70,7 @@ public class FullTeleBruh extends OpMode {
             robot.dropCapstone();
         }
 
-
+        //Sounds
         if(gamepad2.b) {
             if(!bruh) {
                 bruh = true;
@@ -76,6 +79,20 @@ public class FullTeleBruh extends OpMode {
             }
         } else {
             bruh = false;
+        }
+
+        if(gamepad2.x) {
+            if(!cantina) {
+                cantina = true;
+                if(!cantinaPlayer.isPlaying()) {
+                    cantinaPlayer.seekTo(0);
+                    cantinaPlayer.start();
+                } else {
+                    cantinaPlayer.stop();
+                }
+            }
+        } else {
+            cantina = false;
         }
 
 //        if(Math.abs(gamepad2.right_stick_y) > 0.2) {

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import robot.Gyro;
 
-@TeleOp(name = "Gyro Debug")
+//@TeleOp(name = "Gyro Debug")
 public class GyroDebug extends OpMode {
 
     Gyro gyro;

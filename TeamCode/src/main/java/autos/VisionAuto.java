@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.R;
 import Vision.Sampler;
 import recorder.Player;
 
-@Autonomous(name = "Anime")
+@Autonomous(name = "Anime", group = "other")
 public class VisionAuto extends LinearOpMode {
 
     int sample = 42;

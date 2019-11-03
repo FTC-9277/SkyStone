@@ -9,7 +9,7 @@ import recorder.RecordMotor;
 import recorder.Recorder;
 import robot.SmolBoi;
 
-@TeleOp(name = "Smol Boi")
+//@TeleOp(name = "Smol Boi")
 public class SmolBoiTeleOp extends OpMode {
 
     SmolBoi robot = new SmolBoi(this);

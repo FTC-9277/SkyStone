@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import robot.ExplosivesRobot;
 
-@TeleOp(name = "Mechanum Test")
+//@TeleOp(name = "Mechanum Test")
 public class MecanumTest extends OpMode {
 
     ExplosivesRobot robot;
