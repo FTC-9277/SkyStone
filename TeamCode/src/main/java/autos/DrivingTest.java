@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import robot.ExplosivesRobot;
 
-//@Autonomous(name = "Driving Straight")
+@Autonomous(name = "Driving Test", group = "other")
 public class DrivingTest extends LinearOpMode {
 
     ExplosivesRobot robot = new ExplosivesRobot(this);
@@ -19,11 +19,19 @@ public class DrivingTest extends LinearOpMode {
 
         wait(1000);
 
-        robot.strafe(0.5, ExplosivesRobot.Direction.RIGHT);
+        robot.gyroTurn(0.5,90);
 
-        wait(5000);
+        wait(2000);
 
-        robot.stop();
+        robot.gyroTurn(0.5,-90);
+
+        wait(2000);
+
+        robot.gyroTurn(0.5,180);
+
+        wait(2000);
+
+        robot.gyroTurn(0.5,-180);
 
     }
 

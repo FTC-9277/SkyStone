@@ -2,7 +2,7 @@ package Vision;
 
 public class nativePipeline {
 
-    public boolean sample(int[] a, int w, int h) {
+    public int sample(int[] a, int w, int h) {
         return Java_Vision_nativePipeline_Sample(a,w,h);
     }
 
@@ -10,5 +10,5 @@ public class nativePipeline {
         System.loadLibrary("skystone");
     }
 
-    public native boolean Java_Vision_nativePipeline_Sample(int[] a, int w, int h);
+    public native int Java_Vision_nativePipeline_Sample(int[] a, int w, int h);
 }

@@ -3,11 +3,12 @@ package teleops;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 import robot.Gyro;
 
-//@TeleOp(name = "Gyro Debug")
-public class GyroDebug extends OpMode {
+@TeleOp(name = "Sensor Debug")
+public class SensorDebug extends OpMode {
 
     Gyro gyro;
 

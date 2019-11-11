@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 import java.util.ArrayList;
 
 public class ExplosivesRobot {
@@ -202,6 +204,78 @@ public class ExplosivesRobot {
         cap.setPosition(1.0);
     }
 
+    double last = 0.0;
+
+    public void gyroTurn(double speed, int degrees) {
+//        double initG = gyro();
+//        double target = initG+degrees;
+//        double distance = initG-target;
+//        int divisor = 100;
+//
+//        if(degrees < 0) {
+//            lDrive(-speed);
+//            rDrive(speed);
+//
+//            while(gyro()>target) {
+//                lDrive(-speed*(1-(distance/divisor)));
+//                rDrive(speed*(1-(distance/divisor)));
+//                distance = initG-target;
+//            }
+//        } else {
+//
+//
+//            while(gyro()<target) {
+//                lDrive(speed*(1-(distance/divisor)));
+//                rDrive(-speed*(1-(distance/divisor)));
+//            }
+//        }
+//
+//        stop();
+
+        last = gyro();
+        double current = gyro();
+        double target = current+degrees;
+
+        double difference = target-current;
+
+        if (target < -180){
+            target+=360;
+        } else if (target > 180){
+            target-=360;
+        }
+
+        long start = System.currentTimeMillis();
+
+        while(Math.abs(gyro()-target)>2 /*&& start+2000 > System.currentTimeMillis()*/) {
+            difference = target - gyro();
+
+            if (difference > 50) {
+                lDrive(-0.8*speed);
+                rDrive(0.8*speed);
+            } else if (difference > 30) {
+                lDrive(-0.3*speed);
+                rDrive(0.3*speed);
+            } else if (difference > 15) {
+                lDrive(-0.25*speed);
+                rDrive(0.25*speed);
+            } else if (difference < -50) {
+                lDrive(0.8*speed);
+                rDrive(-0.8*speed);
+            } else if (difference < -30) {
+                lDrive(0.3*speed);
+                rDrive(-0.3*speed);
+            } else if (difference < -15) {
+                lDrive(0.25*speed);
+                rDrive(-0.25*speed);
+            }
+
+            opMode.telemetry.addData(">", gyro());
+            opMode.telemetry.addData("Targ", target);
+            opMode.telemetry.update();
+        }
+
+    }
+
     ///INCOMPLETE
     public void driveStraight(int ticks) {
 
@@ -262,6 +336,10 @@ public class ExplosivesRobot {
 //            return (leftEncoders() + rightEncoders()) / 2;
 //        }
         return bright.getCurrentPosition();
+    }
+
+    public double gyro() {
+        return -gyro.heading();
     }
 
 }

@@ -15,7 +15,7 @@ public class Sampler {
         this.camera = new Camera(opMode.hardwareMap, false);
     }
 
-    public boolean sample(){
+    public int sample(){
         int[] pixels;
         int w, h;
         nativePipeline pipeline = new nativePipeline();

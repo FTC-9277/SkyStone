@@ -22,7 +22,7 @@ public class VisionStoneGrab extends LinearOpMode {
 
         int stone = 1;
 
-        if(sample.sample()) {
+        if(sample.sample() == 2) {
             telemetry.addData("Vision: ", true);
             stone = 1;
         } else {

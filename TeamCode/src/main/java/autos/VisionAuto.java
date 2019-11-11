@@ -36,7 +36,7 @@ public class VisionAuto extends LinearOpMode {
 //        DcMotor motor = hardwareMap.get(DcMotor.class, "intake");
 //        motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        boolean sample = sampler.sample();
+        int sample = sampler.sample();
 
 
 
