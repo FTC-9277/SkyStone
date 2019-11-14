@@ -24,7 +24,7 @@ public class ExplosivesRobot {
     public Gyro gyro;
     public Servo hook, cap, leftI, rightI;
 //    public CRServo intake;
-    ModernRoboticsI2cRangeSensor sonicTheFish;
+    public ModernRoboticsI2cRangeSensor sonicTheFish;
 
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
@@ -338,19 +338,19 @@ public class ExplosivesRobot {
             opMode.telemetry.addData("GYRO: ", gyro());
             opMode.telemetry.addData("DIFF: ", diff);
             if(diff > 0) {
-                bleft.setPower((targetSpeed - (diff/divisor)));
-                fleft.setPower((targetSpeed - (diff/divisor)));
-                fright.setPower((targetSpeed + (diff/divisor)));
-                bright.setPower((targetSpeed + (diff/divisor)));
-                opMode.telemetry.addData("Left: ", targetSpeed - (diff/divisor));
-                opMode.telemetry.addData("Right: ", targetSpeed + (diff/divisor));
+                bleft.setPower((targetSpeed - Math.abs(diff/divisor)));
+                fleft.setPower((targetSpeed - Math.abs(diff/divisor)));
+                fright.setPower((targetSpeed + Math.abs(diff/divisor)));
+                bright.setPower((targetSpeed + Math.abs(diff/divisor)));
+                opMode.telemetry.addData("Left: ", targetSpeed - Math.abs(diff/divisor));
+                opMode.telemetry.addData("Right: ", targetSpeed + Math.abs(diff/divisor));
             } else {
-                bleft.setPower((targetSpeed + (diff/divisor)));
-                fleft.setPower((targetSpeed + (diff/divisor)));
-                fright.setPower((targetSpeed - (diff/divisor)));
-                bright.setPower((targetSpeed - (diff/divisor)));
-                opMode.telemetry.addData("Left: ", targetSpeed + (diff/divisor));
-                opMode.telemetry.addData("Right: ", targetSpeed - (diff/divisor));
+                bleft.setPower((targetSpeed + Math.abs(diff/divisor)));
+                fleft.setPower((targetSpeed + Math.abs(diff/divisor)));
+                fright.setPower((targetSpeed - Math.abs(diff/divisor)));
+                bright.setPower((targetSpeed - Math.abs(diff/divisor)));
+                opMode.telemetry.addData("Left: ", targetSpeed + Math.abs(diff/divisor));
+                opMode.telemetry.addData("Right: ", targetSpeed - Math.abs(diff/divisor));
             }
             opMode.telemetry.update();
 
