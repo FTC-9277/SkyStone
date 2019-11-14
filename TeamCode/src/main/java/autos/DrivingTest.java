@@ -19,19 +19,27 @@ public class DrivingTest extends LinearOpMode {
 
         wait(1000);
 
-        robot.gyroTurn(0.5,90);
 
-        wait(2000);
 
-        robot.gyroTurn(0.5,-90);
+//        robot.gyroTurn(0.5,90);
+//
+//        wait(2000);
+//
+//        robot.gyroTurn(0.5,-90);
+//
+//        wait(2000);
+//
+//        robot.gyroTurn(0.5,180);
+//
+//        wait(2000);
+//
+//        robot.gyroTurn(0.5,-180);
 
-        wait(2000);
+        robot.driveS(0.5,8000);
 
-        robot.gyroTurn(0.5,180);
+        wait(1000);
 
-        wait(2000);
-
-        robot.gyroTurn(0.5,-180);
+        robot.driveS(-0.5,8000);
 
     }
 

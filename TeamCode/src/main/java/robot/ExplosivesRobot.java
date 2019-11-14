@@ -2,6 +2,7 @@ package robot;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -23,6 +24,7 @@ public class ExplosivesRobot {
     public Gyro gyro;
     public Servo hook, cap, leftI, rightI;
 //    public CRServo intake;
+    ModernRoboticsI2cRangeSensor sonicTheFish;
 
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
@@ -55,6 +57,8 @@ public class ExplosivesRobot {
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
 
         cap = opMode.hardwareMap.get(Servo.class, "capstone");
+
+        sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
 
 //        intake = opMode.hardwareMap.get(DcMotor.class, "intake");
 //        left = opMode.hardwareMap.get(CRServo.class, "left");
@@ -112,7 +116,7 @@ public class ExplosivesRobot {
 //    }
 
     public void strafe(double speed, Direction direction) {
-        if (driveTrain == DriveTrainType.MECANUM) {
+//        if (driveTrain == DriveTrainType.MECANUM) {
             if(direction == Direction.LEFT) {
                 fright.setPower(-speed);
                 bright.setPower(speed);
@@ -124,7 +128,7 @@ public class ExplosivesRobot {
                 fleft.setPower(-speed);
                 bleft.setPower(speed);
             }
-        }
+//        }
     }
 
     public void turn(double speed, Direction direction) {
@@ -319,6 +323,38 @@ public class ExplosivesRobot {
 
         }
 
+        stop();
+    }
+
+    final int divisor = 50;
+
+    public void driveS(double speed, int millis) {
+        long initT = System.currentTimeMillis()+millis;
+        //For some reason, targetSpeed has to be
+        double targetSpeed = -0.8*speed;
+        double initG = gyro();
+        while(System.currentTimeMillis() < initT) {
+            double diff = gyro()-initG;
+            opMode.telemetry.addData("GYRO: ", gyro());
+            opMode.telemetry.addData("DIFF: ", diff);
+            if(diff > 0) {
+                bleft.setPower((targetSpeed - (diff/divisor)));
+                fleft.setPower((targetSpeed - (diff/divisor)));
+                fright.setPower((targetSpeed + (diff/divisor)));
+                bright.setPower((targetSpeed + (diff/divisor)));
+                opMode.telemetry.addData("Left: ", targetSpeed - (diff/divisor));
+                opMode.telemetry.addData("Right: ", targetSpeed + (diff/divisor));
+            } else {
+                bleft.setPower((targetSpeed + (diff/divisor)));
+                fleft.setPower((targetSpeed + (diff/divisor)));
+                fright.setPower((targetSpeed - (diff/divisor)));
+                bright.setPower((targetSpeed - (diff/divisor)));
+                opMode.telemetry.addData("Left: ", targetSpeed + (diff/divisor));
+                opMode.telemetry.addData("Right: ", targetSpeed - (diff/divisor));
+            }
+            opMode.telemetry.update();
+
+        }
         stop();
     }
 
