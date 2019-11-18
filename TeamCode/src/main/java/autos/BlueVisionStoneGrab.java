@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import Vision.Sampler;
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "BLUE - Vision Stone Grab", group = "stone")
+@Autonomous(name = "BLUE - Single Vision Stone Grab", group = "stone")
 public class BlueVisionStoneGrab extends LinearOpMode {
 
     ExplosivesRobot robot;
@@ -24,17 +24,18 @@ public class BlueVisionStoneGrab extends LinearOpMode {
 
         stone = sample.sample();
 
-        robot.drive(0.5);
-        wait(750);
+        robot.driveTime(0.5,750);
 
-        robot.stop();
         wait(500);
+
+        int sampleCount = 0;
 
         while(opModeIsActive()) {
             telemetry.addData("EYESSSSS: ", stone);
             telemetry.update();
 
             stone = sample.sample();
+            sampleCount++;
             wait(100);
 
             if(stone == 0) {
@@ -47,49 +48,36 @@ public class BlueVisionStoneGrab extends LinearOpMode {
             }
         }
 
-        robot.fright.setPower(-0.3);
-        robot.bright.setPower(0.3);
-        robot.fleft.setPower(0.3);
-        robot.bleft.setPower(-0.3);
-        wait(250);
+//        robot.fright.setPower(0.3);
+//        robot.bright.setPower(-0.3);
+//        robot.fleft.setPower(-0.3);
+//        robot.bleft.setPower(0.3);
+//        wait(250);
 
         robot.stop();
         wait(500);
 
-        robot.drive(0.75);
-        wait(1000);
+        robot.driveTime(0.75,1000);
 
-        robot.stop();
         wait(500);
 
-        robot.turn(0.8, ExplosivesRobot.Direction.LEFT);
-        wait(1350);
+        robot.gyroTurn(0.8,200);
 
-        robot.stop();
         wait(500);
 
-        robot.drive(0.8);
-        wait(650);
+        robot.driveTime(0.8,500);
 
-        robot.stop();
         wait(500);
 
-        robot.turn(0.8, ExplosivesRobot.Direction.RIGHT);
-        wait(350);
+        robot.gyroTurn(0.8,80);
 
-        robot.stop();
         wait(500);
 
-        robot.drive(1.0);
-        wait(1000);
+        robot.driveTime(1.0, (150*sampleCount+1000));
 
-        robot.stop();
         wait(500);
 
-        robot.drive(-0.75);
-        wait(500);
-
-        robot.stop();
+        robot.driveTime(-0.75,500);
 
     }
 

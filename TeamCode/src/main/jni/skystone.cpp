@@ -61,7 +61,7 @@ int sample(int *pixels, int w, int h) {
     //Divisions MUST BE ODD
     int divisions = 5;
 
-    for(int pos = 0; pos<divisions; pos = pos + 1) {
+//    for(int pos = 0; pos<divisions; pos = pos + 1) {
         //Find range
         int w_start = 2 * (w / 5);
 //    int w_start = 0;
@@ -92,11 +92,13 @@ int sample(int *pixels, int w, int h) {
 
         if (num_black/*/((w)*(h))*/ >
             ((viewH * viewW) / 4)/*average_threshold(((w_end-w_start)*(h_end-h_start))/500)*/) {
-            return pos;
+            return true;
+        } else {
+            return false;
         }
-    }
+//    }
 
-    return -1;
+//    return -1;
 
     //MULTIPLE TESTS
 
