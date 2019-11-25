@@ -57,7 +57,7 @@ public class BlueVisionStoneGrab extends LinearOpMode {
         robot.stop();
         wait(500);
 
-        robot.driveTime(0.75,1000);
+        robot.driveTime(0.9,1250);
 
         wait(500);
 
@@ -65,7 +65,7 @@ public class BlueVisionStoneGrab extends LinearOpMode {
 
         wait(500);
 
-        robot.driveTime(0.8,500);
+        robot.driveTime(0.8,650);
 
         wait(500);
 
@@ -73,11 +73,11 @@ public class BlueVisionStoneGrab extends LinearOpMode {
 
         wait(500);
 
-        robot.driveTime(1.0, (150*sampleCount+1000));
+        robot.driveTime(1.0, (125*sampleCount+2000));
 
         wait(500);
 
-        robot.driveTime(-0.75,500);
+        robot.driveTime(-0.75,(125*sampleCount+900));
 
     }
 

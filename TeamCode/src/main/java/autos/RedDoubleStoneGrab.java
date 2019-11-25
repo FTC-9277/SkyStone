@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import Vision.Sampler;
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "BLUE - Double Stone Grab", group = "stone")
-public class BlueDoubleStoneGrab extends LinearOpMode {
+@Autonomous(name = "RED - Double Stone Grab", group = "stone")
+public class RedDoubleStoneGrab extends LinearOpMode {
 
     ExplosivesRobot robot;
     Sampler sample;
@@ -24,7 +24,7 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
 
         stone = sample.sample();
 
-        robot.driveTime(0.5,850);
+        robot.driveTime(0.5,750);
 
         wait(500);
 
@@ -39,19 +39,19 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
             wait(100);
 
             if(stone == 0) {
-                robot.fright.setPower(0.3);
-                robot.bright.setPower(-0.3);
-                robot.fleft.setPower(-0.3);
-                robot.bleft.setPower(0.3);
+                robot.fright.setPower(-0.3);
+                robot.bright.setPower(0.3);
+                robot.fleft.setPower(0.3);
+                robot.bleft.setPower(-0.3);
             } else {
                 break;
             }
         }
 
-        robot.fright.setPower(0.3);
-        robot.bright.setPower(-0.3);
-        robot.fleft.setPower(-0.3);
-        robot.bleft.setPower(0.3);
+        robot.fright.setPower(-0.3);
+        robot.bright.setPower(0.3);
+        robot.fleft.setPower(0.3);
+        robot.bleft.setPower(-0.3);
         wait(50);
 
         robot.stop();
@@ -61,7 +61,7 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
 
 //        wait(500);
 
-        robot.gyroTurn(0.8,200);
+        robot.gyroTurn(0.8,160);
 
 //        wait(500);
 
@@ -69,7 +69,7 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
 
 //        wait(500);
 
-        robot.gyroTurn(0.8,83);
+        robot.gyroTurn(0.8,277);
 
 //        wait(500);
 
@@ -81,7 +81,7 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
 
 //        wait(500);
 
-        robot.gyroTurn(0.8,90);
+        robot.gyroTurn(0.8,270);
 
 //        sampleCount = 0;
 //
@@ -110,7 +110,7 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
 
 //        wait(500);
 
-        robot.gyroTurn(0.8,200);
+        robot.gyroTurn(0.8,160);
 
 //        wait(500);
 
@@ -118,7 +118,7 @@ public class BlueDoubleStoneGrab extends LinearOpMode {
 
 //        wait(500);
 
-        robot.gyroTurn(0.8,80);
+        robot.gyroTurn(0.8,280);
 
 //        wait(500);
 

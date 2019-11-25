@@ -14,7 +14,7 @@ public class FullTeleSansHook extends OpMode {
     @Override
     public void init() {
         robot = new ExplosivesRobot(this);
-        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
+//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 //        sampler = new Sampler(this);
     }

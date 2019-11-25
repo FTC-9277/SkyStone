@@ -13,7 +13,7 @@ public class NewFoundationMoveRed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new ExplosivesRobot(this);
-        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
+//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 
         waitForStart();

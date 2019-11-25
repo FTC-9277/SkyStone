@@ -12,7 +12,7 @@ public class DrivingTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
+//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 
         waitForStart();
@@ -35,11 +35,28 @@ public class DrivingTest extends LinearOpMode {
 //
 //        robot.gyroTurn(0.5,-180);
 
-        robot.driveTime(0.5,2000);
+//        robot.driveTime(0.5,2000);
+//
+//        wait(1000);
+//
+//        robot.driveTime(-0.5,2000);
 
-        wait(1000);
+        long start = System.currentTimeMillis();
 
-        robot.driveTime(-0.5,2000);
+        while(start+5000 > System.currentTimeMillis()) {
+            telemetry.addData("Gyro", robot.gyro());
+            telemetry.update();
+        }
+
+        robot.turnToAngle(0.5,0);
+
+//        wait(500);
+//
+//        robot.turnToAngle(0.5,45);
+//
+//        wait(500);
+//
+//        robot.turnToAngle(0.5,90);
 
     }
 

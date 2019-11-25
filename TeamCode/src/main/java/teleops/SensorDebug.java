@@ -22,7 +22,7 @@ public class SensorDebug extends OpMode {
     public void init() {
         gyro = new Gyro(this);
         sonicTheFish = hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
-        motor = hardwareMap.get(DcMotor.class,"fright");
+//        motor = hardwareMap.get(DcMotor.class,"fright");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SensorDebug extends OpMode {
         telemetry.addData("Roll: ", gyro.roll());
         telemetry.addData("Pitch: ", gyro.pitch());
         telemetry.addData("Sonic the fish: ", sonicTheFish.getDistance(DistanceUnit.INCH));
-        telemetry.addData("Encoder", motor.getCurrentPosition());
+//        telemetry.addData("Encoder", motor.getCurrentPosition());
         telemetry.update();
     }
 }

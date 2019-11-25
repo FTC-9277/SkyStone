@@ -1,17 +1,13 @@
 package robot;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.ArrayList;
 
@@ -19,28 +15,25 @@ public class ExplosivesRobot {
 
     private OpMode opMode = null;
 
-    public DcMotor fleft, bleft, bright, fright;//, intake;
+    public DcMotor fleft, bleft, bright, fright, lintake, rintake;
     //    public DcMotor intake;
     public Gyro gyro;
     public Servo hook, cap, leftI, rightI;
+    public DcMotor leftLift, rightLift;
 //    public CRServo intake;
     public ModernRoboticsI2cRangeSensor sonicTheFish;
 
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
-    DriveTrainType driveTrain;
-
-    public enum DriveTrainType {
-        MECANUM, TANK
-    }
+    public ExplosivesRobotParameters parameters;
 
     public enum Direction {
         LEFT, RIGHT
     }
 
-    public ExplosivesRobot(OpMode op) {
+    public ExplosivesRobot(OpMode op/*, ExplosivesRobotParameters parameters*/) {
         opMode = op;
-        driveTrain = DriveTrainType.TANK;
+        this.parameters=parameters;
     }
 
     public void init() {
@@ -55,8 +48,14 @@ public class ExplosivesRobot {
 //        intake = opMode.hardwareMap.get(CRServo.class, "intake");
 
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
-
+//
         cap = opMode.hardwareMap.get(Servo.class, "capstone");
+
+        lintake = opMode.hardwareMap.get(DcMotor.class,"lintake");
+        rintake = opMode.hardwareMap.get(DcMotor.class,"rintake");
+
+        leftLift = opMode.hardwareMap.get(DcMotor.class,"leftLift");
+        rightLift = opMode.hardwareMap.get(DcMotor.class,"rightLift");
 
 //        sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
 
@@ -73,15 +72,24 @@ public class ExplosivesRobot {
 
         fright.setDirection(DcMotorSimple.Direction.REVERSE);
         bright.setDirection(DcMotorSimple.Direction.REVERSE);
-//        left.setDirection(DcMotorSimple.Direction.REVERSE);
+////        left.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        rightLift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rintake.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
+//        liftIntake();
+
+        leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftI.setPosition(-1.0);
+        rightI.setPosition(1.0);
 
         unhook();
-    }
-
-    public void setDriveTrainType(DriveTrainType type) {
-        this.driveTrain = type;
+        liftCapstone();
     }
 
     public void drive(double speed) {
@@ -201,11 +209,11 @@ public class ExplosivesRobot {
     }
 
     public void dropCapstone() {
-        cap.setPosition(0.0);
+        cap.setPosition(1.0);
     }
 
     public void liftCapstone() {
-        cap.setPosition(1.0);
+        cap.setPosition(0.1);
     }
 
     double last = 0.0;
@@ -279,6 +287,58 @@ public class ExplosivesRobot {
             opMode.telemetry.update();
         }
 
+    }
+
+    public void  turnToAngle(double speed, int target) {
+        last = gyro();
+        double current = gyro();
+
+        double difference = target-current;
+        double overallDiff = target-current;
+
+        if (target < -180){
+            target+=360;
+        } else if (target > 180) {
+            target-=360;
+        }
+
+        long start = System.currentTimeMillis();
+
+        while(start+2000 > System.currentTimeMillis()) {
+            opMode.telemetry.addData("Target", target);
+            opMode.telemetry.addData("Diff", difference);
+            opMode.telemetry.update();
+        }
+
+        start = System.currentTimeMillis();
+
+        while(Math.abs(target)-Math.abs(gyro())>2 && start+(overallDiff*(speed*20)) > System.currentTimeMillis()) {
+            difference = target - gyro();
+
+            if (difference > 50) {
+                lDrive(-0.8*speed);
+                rDrive(0.8*speed);
+            } else if (difference > 30) {
+                lDrive(-0.3*speed);
+                rDrive(0.3*speed);
+            } else if (difference > 20) {
+                lDrive(-0.2*speed);
+                rDrive(0.2*speed);
+            } else if (difference < -50) {
+                lDrive(0.8*speed);
+                rDrive(-0.8*speed);
+            } else if (difference < -30) {
+                lDrive(0.3*speed);
+                rDrive(-0.3*speed);
+            } else if (difference < -20) {
+                lDrive(0.2*speed);
+                rDrive(-0.2*speed);
+            }
+
+            opMode.telemetry.addData(">", gyro());
+            opMode.telemetry.addData("Targ", target);
+            opMode.telemetry.update();
+        }
     }
 
     ///INCOMPLETE
@@ -367,6 +427,41 @@ public class ExplosivesRobot {
 
     public double gyro() {
         return -gyro.heading();
+    }
+
+
+    public void lift() {
+        leftLift.setPower(0.3);
+        rightLift.setPower(0.3);
+    }
+
+    public void fall() {
+        leftLift.setPower(-0.3);
+        rightLift.setPower(-0.3);
+    }
+
+    public void intake() {
+        lintake.setPower(-1.0);
+        rintake.setPower(1.0);
+    }
+
+    public void outtake() {
+        lintake.setPower(1.0);
+        rintake.setPower(-1.0);
+    }
+
+    final double INTAKE_MOVE_CONSTANT = 0.025;
+
+    public void dropIntake() {
+//        if(leftI.getPosition() < 0.5) {
+            leftI.setPosition(leftI.getPosition() + INTAKE_MOVE_CONSTANT);
+            rightI.setPosition(rightI.getPosition() - INTAKE_MOVE_CONSTANT);
+//        }
+    }
+
+    public void liftIntake() {
+        leftI.setPosition(leftI.getPosition()-INTAKE_MOVE_CONSTANT);
+        rightI.setPosition(rightI.getPosition()+INTAKE_MOVE_CONSTANT);
     }
 
 }

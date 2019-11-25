@@ -19,7 +19,7 @@ public class FullTeleWithSounds extends OpMode {
     @Override
     public void init() {
         robot = new ExplosivesRobot(this);
-        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
+//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 //        sampler = new Sampler(this);
         player = MediaPlayer.create(hardwareMap.appContext, R.raw.bruh);

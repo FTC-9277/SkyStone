@@ -12,7 +12,7 @@ public class Playground extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
+//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 
         waitForStart();
