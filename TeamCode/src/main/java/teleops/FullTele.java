@@ -32,10 +32,10 @@ public class FullTele extends OpMode {
     public void loop() {
 
         if(Math.abs(gamepad1.left_stick_y) > 0.2 || Math.abs(gamepad1.left_stick_x) > 0.2 || Math.abs(gamepad1.right_stick_x) > 0.2) {
-            robot.fright.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) + gamepad1.right_stick_x);
-            robot.bright.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) + gamepad1.right_stick_x);
-            robot.fleft.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) - gamepad1.right_stick_x);
-            robot.bleft.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) - gamepad1.right_stick_x);
+            robot.fright.setPower(-(gamepad1.left_stick_y+gamepad1.left_stick_x) + gamepad1.right_stick_x);
+            robot.bright.setPower(-(gamepad1.left_stick_y-gamepad1.left_stick_x) + gamepad1.right_stick_x);
+            robot.fleft.setPower(-(gamepad1.left_stick_y-gamepad1.left_stick_x) - gamepad1.right_stick_x);
+            robot.bleft.setPower(-(gamepad1.left_stick_y+gamepad1.left_stick_x) - gamepad1.right_stick_x);
         } else {
             robot.stop();
         }
@@ -52,59 +52,43 @@ public class FullTele extends OpMode {
             robot.dropCapstone();
         }
 
-        if(Math.abs(gamepad2.left_stick_y) > 0.1) {
-            if(gamepad2.left_stick_y>0) {
-//                if(leftLiftTarget>0) {
-                    leftLiftTarget -= 10;
-//                }
-            } else {
-                leftLiftTarget += 10;
-            }
-        }
-
-        //Get leftLift to position
-//        if(Math.abs(robot.leftLift.getCurrentPosition())-Math.abs(leftLiftTarget)>10) {
-            robot.leftLift.setPower(-(robot.leftLift.getCurrentPosition() - leftLiftTarget) / 100.0);
+//        if(Math.abs(gamepad2.left_stick_y)>0.1) {
+//            leftLiftTarget+=gamepad2.left_stick_y*40;
 //        }
-
-        if(Math.abs(gamepad2.left_stick_y) > 0.1) {
-            if(gamepad2.left_stick_y>0) {
-//                if(leftLiftTarget>0) {
-                rightLiftTarget -= 10;
-//                }
-            } else {
-                rightLiftTarget += 10;
-            }
-        }
-
-        //Get rightLift to position
-//        if(Math.abs(robot.rightLift.getCurrentPosition())-Math.abs(rightLiftTarget)>10) {
-            robot.rightLift.setPower((robot.rightLift.getCurrentPosition() - rightLiftTarget) / 100.0);
+//
+//        if(Math.abs(gamepad2.right_stick_y)>0.1) {
+//            rightLiftTarget+=gamepad2.right_stick_y*40;
 //        }
-
-        telemetry.addData("LeftLift encoder",robot.leftLift.getCurrentPosition());
-        telemetry.addData("LTarget",leftLiftTarget);
-        telemetry.addData("LPower",-(robot.leftLift.getCurrentPosition()-leftLiftTarget)/100.0);
-        telemetry.addData("RightLift encoder",robot.rightLift.getCurrentPosition());
-        telemetry.addData("RTarget",rightLiftTarget);
-        telemetry.addData("RPower",(robot.rightLift.getCurrentPosition()-rightLiftTarget)/100.0);
-        telemetry.update();
-
-
+//
+//        if(Math.abs(robot.leftLift.getCurrentPosition()-leftLiftTarget) > 5) {
+//            robot.leftLift.setPower((Math.abs(robot.leftLift.getCurrentPosition())-Math.abs(leftLiftTarget))/1000);
+//        } else {
+//            robot.leftLift.setPower(0.0);
+//        }
+//
+//        telemetry.addData("LeftLift encoder",robot.leftLift.getCurrentPosition());
+//        telemetry.addData("LTarget",leftLiftTarget);
+//        telemetry.addData("LPower",robot.rightLift.getPower());
+//        telemetry.addData("RightLift encoder",robot.rightLift.getCurrentPosition());
+//        telemetry.addData("RTarget",rightLiftTarget);
+//        telemetry.addData("RPower",robot.rightLift.getPower());
+//        telemetry.update();
+//
+//
 //        if (Math.abs(gamepad2.right_stick_y) > 0.1) {
 //            robot.rightLift.setPower(gamepad2.right_stick_y);
 //        } else {
 //            robot.rightLift.setPower(0.0);
 //        }
 
-        if(gamepad2.y) {
-            robot.outtake();
-        } else if(gamepad2.a) {
-            robot.intake();
-        } else {
-            robot.lintake.setPower(0.0);
-            robot.rintake.setPower(0.0);
-        }
+//        if(gamepad2.y) {
+//            robot.outtake();
+//        } else if(gamepad2.a) {
+//            robot.intake();
+//        } else {
+//            robot.lintake.setPower(0.0);
+//            robot.rintake.setPower(0.0);
+//        }
 
 
         if(gamepad2.right_bumper) {

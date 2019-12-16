@@ -48,16 +48,16 @@ public class RedVisionStoneGrab extends LinearOpMode {
             }
         }
 
-//        robot.fright.setPower(-0.3);
-//        robot.bright.setPower(0.3);
-//        robot.fleft.setPower(0.3);
-//        robot.bleft.setPower(-0.3);
+//        robot.fright.setPower(0.3);
+//        robot.bright.setPower(-0.3);
+//        robot.fleft.setPower(-0.3);
+//        robot.bleft.setPower(0.3);
 //        wait(250);
 
         robot.stop();
         wait(500);
 
-        robot.driveTime(0.75,1000);
+        robot.driveTime(0.9,1250);
 
         wait(500);
 
@@ -65,19 +65,19 @@ public class RedVisionStoneGrab extends LinearOpMode {
 
         wait(500);
 
-        robot.driveTime(0.8,500);
+        robot.driveTime(0.8,650);
 
         wait(500);
 
-        robot.gyroTurn(0.8,280);
+        robot.gyroTurn(0.8,290 );
 
         wait(500);
 
-        robot.driveTime(1.0, (150*sampleCount+1000));
+        robot.driveTime(1.0, (125*sampleCount+2000));
 
         wait(500);
 
-        robot.driveTime(-0.75,500);
+        robot.driveTime(-0.75,(125*sampleCount+900));
 
     }
 

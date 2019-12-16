@@ -7,8 +7,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "BLUE MID PARK - Found. Move (face backward)", group = "foundation")
-public class NewFoundationMoveBlue extends LinearOpMode {
+@Autonomous(name = "BLUE WALL PARK - Found. Move (face backward)", group = "foundation")
+public class NewFoundationMoveBlueWallpark extends LinearOpMode {
 
     ExplosivesRobot robot;
 
@@ -87,7 +87,12 @@ public class NewFoundationMoveBlue extends LinearOpMode {
         robot.stop();
         wait(100);
 
-        robot.driveTime(-1.0,2000);
+        robot.driveTime(-1.0,1750);
+
+        robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(1500);
+
+        robot.driveTime(-1.0,500);
 
         robot.stop();
 

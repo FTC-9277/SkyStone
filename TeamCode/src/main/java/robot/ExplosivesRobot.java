@@ -51,13 +51,13 @@ public class ExplosivesRobot {
 //
         cap = opMode.hardwareMap.get(Servo.class, "capstone");
 
-        lintake = opMode.hardwareMap.get(DcMotor.class,"lintake");
-        rintake = opMode.hardwareMap.get(DcMotor.class,"rintake");
+//        lintake = opMode.hardwareMap.get(DcMotor.class,"lintake");
+//        rintake = opMode.hardwareMap.get(DcMotor.class,"rintake");
+//
+//        leftLift = opMode.hardwareMap.get(DcMotor.class,"leftLift");
+//        rightLift = opMode.hardwareMap.get(DcMotor.class,"rightLift");
 
-        leftLift = opMode.hardwareMap.get(DcMotor.class,"leftLift");
-        rightLift = opMode.hardwareMap.get(DcMotor.class,"rightLift");
-
-//        sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
+        sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
 
 //        intake = opMode.hardwareMap.get(DcMotor.class, "intake");
 //        left = opMode.hardwareMap.get(CRServo.class, "left");
@@ -74,16 +74,16 @@ public class ExplosivesRobot {
         bright.setDirection(DcMotorSimple.Direction.REVERSE);
 ////        left.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        rightLift.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightLift.setDirection(DcMotorSimple.Direction.REVERSE);
 //        rintake.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 //        liftIntake();
 
-        leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftI.setPosition(-1.0);
         rightI.setPosition(1.0);
@@ -93,7 +93,7 @@ public class ExplosivesRobot {
     }
 
     public void drive(double speed) {
-        speed = -speed;
+//        speed = -speed;
         if(speed<=1&&speed>=-1) {
             fleft.setPower(speed);
             fright.setPower(speed);
@@ -124,6 +124,7 @@ public class ExplosivesRobot {
 //    }
 
     public void strafe(double speed, Direction direction) {
+        speed=-speed;
 //        if (driveTrain == DriveTrainType.MECANUM) {
             if(direction == Direction.LEFT) {
                 fright.setPower(-speed);
@@ -140,6 +141,7 @@ public class ExplosivesRobot {
     }
 
     public void turn(double speed, Direction direction) {
+        speed = -speed;
         if (direction == Direction.RIGHT) {
             fleft.setPower(-speed);
             bleft.setPower(-speed);
@@ -343,6 +345,7 @@ public class ExplosivesRobot {
 
     ///INCOMPLETE
     public void driveTicks(double speed, int ticks) {
+        speed = -speed;
         //For some reason, targetSpeed has to be negative
         long initT = System.currentTimeMillis()+ticks;
         resetEncoders();
@@ -384,6 +387,7 @@ public class ExplosivesRobot {
     final int DIVISOR = 50;
 
     public void driveTime(double speed, int millis) {
+        speed = -speed;
         long initT = System.currentTimeMillis()+millis;
         //For some reason, targetSpeed has to be negative
         double targetSpeed = -0.8*speed;
@@ -441,13 +445,13 @@ public class ExplosivesRobot {
     }
 
     public void intake() {
-        lintake.setPower(-1.0);
-        rintake.setPower(1.0);
+        lintake.setPower(-0.5);
+        rintake.setPower(0.5);
     }
 
     public void outtake() {
-        lintake.setPower(1.0);
-        rintake.setPower(-1.0);
+        lintake.setPower(0.5);
+        rintake.setPower(-0.5);
     }
 
     final double INTAKE_MOVE_CONSTANT = 0.025;

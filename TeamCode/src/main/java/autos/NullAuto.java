@@ -14,7 +14,7 @@ import robot.ExplosivesRobot;
 @Autonomous(name = "Null Auto", group = "other")
 public class NullAuto extends LinearOpMode {
 
-    Player player = null;
+//    Player player = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -24,7 +24,7 @@ public class NullAuto extends LinearOpMode {
 
 //        player.add("takeonme");
 
-        playMusic(0);
+//        playMusic(0);
 
         Thread.sleep(5000);
 
@@ -34,26 +34,26 @@ public class NullAuto extends LinearOpMode {
 
         }
 
-        mediaPlayer.stop();
+//        mediaPlayer.stop();
 
 
     }
 
 
-    private static MediaPlayer mediaPlayer;
-
-    public void playMusic(int id)
-    {
-
-//        AssetFileDescriptor afd = getAssets().openFd(file.getName());
-//        player = new MediaPlayer();
-//        player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-//        player.prepare();
-//        player.start();
-//        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.crabrave);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.seekTo(74000);
-        mediaPlayer.start();
-    }
+//    private static MediaPlayer mediaPlayer;
+//
+//    public void playMusic(int id)
+//    {
+//
+////        AssetFileDescriptor afd = getAssets().openFd(file.getName());
+////        player = new MediaPlayer();
+////        player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+////        player.prepare();
+////        player.start();
+////        mediaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.crabrave);
+//        mediaPlayer.setLooping(true);
+//        mediaPlayer.seekTo(74000);
+//        mediaPlayer.start();
+//    }
 
 }
