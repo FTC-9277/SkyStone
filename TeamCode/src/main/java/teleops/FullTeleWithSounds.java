@@ -22,8 +22,8 @@ public class FullTeleWithSounds extends OpMode {
 //        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 //        sampler = new Sampler(this);
-        player = MediaPlayer.create(hardwareMap.appContext, R.raw.bruh);
-        cantinaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.cantina);
+//        player = MediaPlayer.create(hardwareMap.appContext, R.raw.bruh);
+//        cantinaPlayer = MediaPlayer.create(hardwareMap.appContext, R.raw.cantina);
     }
 
 //    int vision = -12;

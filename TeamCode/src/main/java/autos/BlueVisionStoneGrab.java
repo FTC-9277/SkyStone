@@ -9,6 +9,8 @@ import robot.ExplosivesRobot;
 @Autonomous(name = "BLUE - Single Vision Stone Grab", group = "stone")
 public class BlueVisionStoneGrab extends LinearOpMode {
 
+    //yeeeeet
+
     ExplosivesRobot robot;
     Sampler sample;
 
