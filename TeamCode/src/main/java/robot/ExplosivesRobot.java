@@ -15,8 +15,8 @@ public class ExplosivesRobot {
 
     private OpMode opMode = null;
 
-    public DcMotor fleft, bleft, bright, fright, lintake, rintake;
-    //    public DcMotor intake;
+    public DcMotor fleft, bleft, bright, fright;
+    public Servo intake;
     public Gyro gyro;
     public Servo hook, cap, leftI, rightI;
     public DcMotor leftLift, rightLift;
@@ -45,7 +45,7 @@ public class ExplosivesRobot {
         leftI = opMode.hardwareMap.get(Servo.class, "leftI");
         rightI = opMode.hardwareMap.get(Servo.class, "rightI");
 
-//        intake = opMode.hardwareMap.get(CRServo.class, "intake");
+        intake = opMode.hardwareMap.get(Servo.class, "intake");
 
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
 //
@@ -90,6 +90,7 @@ public class ExplosivesRobot {
 
         unhook();
         liftCapstone();
+        intake.setPosition(0.5);
     }
 
     public void drive(double speed) {
@@ -445,16 +446,14 @@ public class ExplosivesRobot {
     }
 
     public void intake() {
-        lintake.setPower(-0.5);
-        rintake.setPower(0.5);
+        intake.setPosition(intake.getPosition()-0.02);
     }
 
     public void outtake() {
-        lintake.setPower(0.5);
-        rintake.setPower(-0.5);
+        intake.setPosition(intake.getPosition()+0.02);
     }
 
-    final double INTAKE_MOVE_CONSTANT = 0.025;
+    final double INTAKE_MOVE_CONSTANT = 0.01;
 
     public void dropIntake() {
 //        if(leftI.getPosition() < 0.5) {

@@ -34,15 +34,17 @@ public class RedVisionStoneGrab extends LinearOpMode {
             telemetry.addData("EYESSSSS: ", stone);
             telemetry.update();
 
+
+
             stone = sample.sample();
             sampleCount++;
             wait(100);
 
             if(stone == 0) {
-                robot.fright.setPower(-0.3);
-                robot.bright.setPower(0.3);
-                robot.fleft.setPower(0.3);
-                robot.bleft.setPower(-0.3);
+                robot.fright.setPower(0.3);
+                robot.bright.setPower(-0.3);
+                robot.fleft.setPower(-0.3);
+                robot.bleft.setPower(0.3);
             } else {
                 break;
             }
@@ -55,29 +57,29 @@ public class RedVisionStoneGrab extends LinearOpMode {
 //        wait(250);
 
         robot.stop();
-        wait(500);
+        wait(100);
 
-        robot.driveTime(0.9,1250);
+        robot.driveTime(1.0,1500);
 
-        wait(500);
+        wait(100);
 
-        robot.gyroTurn(0.8,160);
+        robot.gyroTurn(1.0,190);
 
-        wait(500);
+        wait(200);
 
-        robot.driveTime(0.8,650);
+        robot.driveTime(1.0,1000);
 
-        wait(500);
+        wait(100);
 
-        robot.gyroTurn(0.8,290 );
+        robot.gyroTurn(1.0,250);
 
-        wait(500);
+        wait(100);
 
         robot.driveTime(1.0, (125*sampleCount+2000));
 
-        wait(500);
+        wait(100);
 
-        robot.driveTime(-0.75,(125*sampleCount+900));
+        robot.driveTime(-1.0,(125*sampleCount+900));
 
     }
 

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "Blue - Stone Grab - Mid Park", group = "stone")
+//@Autonomous(name = "Blue - Stone Grab - Mid Park", group = "stone")
 public class StoneGrabBlue extends LinearOpMode {
 
     ExplosivesRobot robot;

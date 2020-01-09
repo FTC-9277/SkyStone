@@ -92,7 +92,7 @@ public class NewFoundationMoveRed extends LinearOpMode {
         robot.stop();
         wait(100);
 
-        robot.driveTime(-1.0,2250);
+        robot.driveTime(-1.0,1250);
 
         robot.stop();
 

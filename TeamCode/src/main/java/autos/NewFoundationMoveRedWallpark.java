@@ -23,7 +23,7 @@ public class NewFoundationMoveRedWallpark extends LinearOpMode {
         robot.driveTime(1.0,750);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.strafe(0.3, ExplosivesRobot.Direction.RIGHT);
 
@@ -34,12 +34,12 @@ public class NewFoundationMoveRedWallpark extends LinearOpMode {
         }
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.gyroTurn(1.0,180);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.driveTime(-1.0,500);
 
@@ -49,7 +49,7 @@ public class NewFoundationMoveRedWallpark extends LinearOpMode {
         robot.driveTime(1.0, 1750);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.unhook();
         wait(1000);
@@ -58,39 +58,39 @@ public class NewFoundationMoveRedWallpark extends LinearOpMode {
         wait(1250);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.driveTime(1.0,2250);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.driveTime(-1.0,2000);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
         wait(1000);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.driveTime(0.5,3000);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.driveTime(-1.0,350);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
         wait(750);
 
         robot.stop();
-        wait(100);
+        wait(500);
 
         robot.driveTime(-1.0,1750);
 

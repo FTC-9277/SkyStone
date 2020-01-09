@@ -41,10 +41,10 @@ public class BlueVisionStoneGrab extends LinearOpMode {
             wait(100);
 
             if(stone == 0) {
-                robot.fright.setPower(0.3);
-                robot.bright.setPower(-0.3);
-                robot.fleft.setPower(-0.3);
-                robot.bleft.setPower(0.3);
+                robot.fright.setPower(-0.3);
+                robot.bright.setPower(0.3);
+                robot.fleft.setPower(0.3);
+                robot.bleft.setPower(-0.3);
             } else {
                 break;
             }

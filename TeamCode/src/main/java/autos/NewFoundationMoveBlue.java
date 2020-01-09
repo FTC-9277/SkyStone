@@ -50,17 +50,17 @@ public class NewFoundationMoveBlue extends LinearOpMode {
         wait(1000);
 
         robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
-        wait(1250);
+        wait(1500);
 
         robot.stop();
         wait(100);
 
-        robot.driveTime(1.0,2250);
+        robot.driveTime(1.0,2000);
 
         robot.stop();
         wait(100);
 
-        robot.driveTime(-1.0,2000);
+        robot.driveTime(-1.0,1500);
 
         robot.stop();
         wait(100);
@@ -87,7 +87,7 @@ public class NewFoundationMoveBlue extends LinearOpMode {
         robot.stop();
         wait(100);
 
-        robot.driveTime(-1.0,2000);
+        robot.driveTime(-1.0,2500);
 
         robot.stop();
 
