@@ -49,13 +49,13 @@ public class ExplosivesRobot {
 
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
 //
-        cap = opMode.hardwareMap.get(Servo.class, "capstone");
+//        cap = opMode.hardwareMap.get(Servo.class, "capstone");
 
 //        lintake = opMode.hardwareMap.get(DcMotor.class,"lintake");
 //        rintake = opMode.hardwareMap.get(DcMotor.class,"rintake");
 //
-//        leftLift = opMode.hardwareMap.get(DcMotor.class,"leftLift");
-//        rightLift = opMode.hardwareMap.get(DcMotor.class,"rightLift");
+        leftLift = opMode.hardwareMap.get(DcMotor.class,"leftLift");
+        rightLift = opMode.hardwareMap.get(DcMotor.class,"rightLift");
 
         sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
 
@@ -85,12 +85,12 @@ public class ExplosivesRobot {
 //        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftI.setPosition(-1.0);
-        rightI.setPosition(1.0);
+        leftI.setPosition(-0.5);
+        rightI.setPosition(0.5);
 
         unhook();
         liftCapstone();
-        intake.setPosition(0.5);
+        intake.setPosition(0.75);
     }
 
     public void drive(double speed) {
@@ -125,7 +125,7 @@ public class ExplosivesRobot {
 //    }
 
     public void strafe(double speed, Direction direction) {
-        speed=-speed;
+//        speed=-speed;
 //        if (driveTrain == DriveTrainType.MECANUM) {
             if(direction == Direction.LEFT) {
                 fright.setPower(-speed);
@@ -212,11 +212,42 @@ public class ExplosivesRobot {
     }
 
     public void dropCapstone() {
-        cap.setPosition(1.0);
+//        cap.setPosition(1.0);
     }
 
     public void liftCapstone() {
-        cap.setPosition(0.1);
+//        cap.setPosition(0.1);
+    }
+
+    public void strafeStraight(double speed, int millis) {
+        speed = -speed;
+        long initT = System.currentTimeMillis()+millis;
+        //For some reason, targetSpeed has to be negative
+        double targetSpeed = -0.8*speed;
+        double initG = gyro();
+        while(System.currentTimeMillis() < initT) {
+            double diff = gyro()-initG;
+            opMode.telemetry.addData("GYRO: ", gyro());
+            opMode.telemetry.addData("DIFF: ", diff);
+            if(diff > 0) {
+                bleft.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
+                fleft.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
+                fright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
+                bright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
+                opMode.telemetry.addData("Left: ", targetSpeed + Math.abs(diff/DIVISOR));
+                opMode.telemetry.addData("Right: ", targetSpeed - Math.abs(diff/DIVISOR));
+            } else {
+                bleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
+                fleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
+                fright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
+                bright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
+                opMode.telemetry.addData("Left: ", targetSpeed - Math.abs(diff/DIVISOR));
+                opMode.telemetry.addData("Right: ", targetSpeed + Math.abs(diff/DIVISOR));
+            }
+            opMode.telemetry.update();
+
+        }
+        stop();
     }
 
     double last = 0.0;
@@ -388,7 +419,7 @@ public class ExplosivesRobot {
     final int DIVISOR = 50;
 
     public void driveTime(double speed, int millis) {
-        speed = -speed;
+//        speed = -speed;
         long initT = System.currentTimeMillis()+millis;
         //For some reason, targetSpeed has to be negative
         double targetSpeed = -0.8*speed;
@@ -398,17 +429,17 @@ public class ExplosivesRobot {
             opMode.telemetry.addData("GYRO: ", gyro());
             opMode.telemetry.addData("DIFF: ", diff);
             if(diff > 0) {
-                bleft.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
+                bleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 fleft.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
                 fright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
-                bright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
+                bright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
                 opMode.telemetry.addData("Left: ", targetSpeed + Math.abs(diff/DIVISOR));
                 opMode.telemetry.addData("Right: ", targetSpeed - Math.abs(diff/DIVISOR));
             } else {
-                bleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
+                bleft.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
                 fleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 fright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
-                bright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
+                bright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 opMode.telemetry.addData("Left: ", targetSpeed - Math.abs(diff/DIVISOR));
                 opMode.telemetry.addData("Right: ", targetSpeed + Math.abs(diff/DIVISOR));
             }
@@ -445,26 +476,30 @@ public class ExplosivesRobot {
         rightLift.setPower(-0.3);
     }
 
-    public void intake() {
-        intake.setPosition(intake.getPosition()-0.02);
+    public void outtake() {
+        if(intake.getPosition()>0.0) {
+            intake.setPosition(intake.getPosition() - 0.02);
+        }
     }
 
-    public void outtake() {
+    public void intake() {
         intake.setPosition(intake.getPosition()+0.02);
     }
 
     final double INTAKE_MOVE_CONSTANT = 0.01;
 
     public void dropIntake() {
-//        if(leftI.getPosition() < 0.5) {
+//        if(leftI.getPosition() < 0.94) {
             leftI.setPosition(leftI.getPosition() + INTAKE_MOVE_CONSTANT);
             rightI.setPosition(rightI.getPosition() - INTAKE_MOVE_CONSTANT);
 //        }
     }
 
     public void liftIntake() {
-        leftI.setPosition(leftI.getPosition()-INTAKE_MOVE_CONSTANT);
-        rightI.setPosition(rightI.getPosition()+INTAKE_MOVE_CONSTANT);
+        if(leftI.getPosition() > 0.44) {
+            leftI.setPosition(leftI.getPosition() - INTAKE_MOVE_CONSTANT);
+            rightI.setPosition(rightI.getPosition() + INTAKE_MOVE_CONSTANT);
+        }
     }
 
 }

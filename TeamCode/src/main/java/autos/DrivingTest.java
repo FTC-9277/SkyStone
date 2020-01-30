@@ -41,20 +41,26 @@ public class DrivingTest extends LinearOpMode {
 //
 //        robot.driveTime(-0.5,2000);
 
-        long start = System.currentTimeMillis();
-
-        while(start+5000 > System.currentTimeMillis()) {
-            telemetry.addData("Gyro", robot.gyro());
-            telemetry.update();
-        }
-
-        robot.turnToAngle(0.5,0);
+//        long start = System.currentTimeMillis();
+//
+//        while(start+5000 > System.currentTimeMillis()) {
+//            telemetry.addData("Gyro", robot.gyro());
+//            telemetry.update();
+//        }
+//
+//        robot.strafeStraight(0.5,4000);
 
 //        wait(500);
 //
-//        robot.turnToAngle(0.5,45);
+        robot.gyroTurn(1.0,90);
 //
-//        wait(500);
+        wait(1000);
+
+        robot.gyroTurn(1.0,180);
+
+        wait(1000);
+
+        robot.gyroTurn(1.0,270);
 //
 //        robot.turnToAngle(0.5,90);
 

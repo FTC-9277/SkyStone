@@ -9,6 +9,8 @@ import robot.ExplosivesRobot;
 @Autonomous(name = "RED - Single Vision Stone Grab", group = "stone")
 public class RedVisionStoneGrab extends LinearOpMode {
 
+    //yeeeeet
+
     ExplosivesRobot robot;
     Sampler sample;
 
@@ -26,7 +28,7 @@ public class RedVisionStoneGrab extends LinearOpMode {
 
         robot.driveTime(0.5,750);
 
-        wait(500);
+        wait(100);
 
         int sampleCount = 0;
 
@@ -34,17 +36,15 @@ public class RedVisionStoneGrab extends LinearOpMode {
             telemetry.addData("EYESSSSS: ", stone);
             telemetry.update();
 
-
-
             stone = sample.sample();
             sampleCount++;
             wait(100);
 
             if(stone == 0) {
-                robot.fright.setPower(0.3);
-                robot.bright.setPower(-0.3);
-                robot.fleft.setPower(-0.3);
-                robot.bleft.setPower(0.3);
+                robot.fright.setPower(-0.3);
+                robot.bright.setPower(0.3);
+                robot.fleft.setPower(0.3);
+                robot.bleft.setPower(-0.3);
             } else {
                 break;
             }
@@ -57,21 +57,24 @@ public class RedVisionStoneGrab extends LinearOpMode {
 //        wait(250);
 
         robot.stop();
-        wait(100);
 
-        robot.driveTime(1.0,1500);
+        wait(500);
 
-        wait(100);
-
-        robot.gyroTurn(1.0,190);
-
-        wait(200);
-
-        robot.driveTime(1.0,1000);
+        robot.driveTime(1.0,1250);
 
         wait(100);
 
-        robot.gyroTurn(1.0,250);
+        robot.gyroTurn(1.0,50);
+
+        robot.gyroTurn(1.0,100);
+
+        wait(100);
+
+        robot.driveTime(1.0,650);
+
+        wait(100);
+
+        robot.gyroTurn(1.0,70);
 
         wait(100);
 
@@ -79,7 +82,7 @@ public class RedVisionStoneGrab extends LinearOpMode {
 
         wait(100);
 
-        robot.driveTime(-1.0,(125*sampleCount+900));
+        robot.driveTime(-1.0,(100*sampleCount+900));
 
     }
 

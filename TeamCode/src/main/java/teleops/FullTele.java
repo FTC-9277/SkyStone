@@ -17,8 +17,8 @@ public class FullTele extends OpMode {
         robot = new ExplosivesRobot(this);
 //        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
-        robot.leftI.setPosition(-1.0);
-        robot.rightI.setPosition(1.0);
+        robot.leftI.setPosition(0.44);
+        robot.rightI.setPosition(0.49);
 //        sampler = new Sampler(this);
     }
 
@@ -28,14 +28,16 @@ public class FullTele extends OpMode {
     int leftLiftTarget = 0;
     int rightLiftTarget = 0;
 
+    boolean pressed=false;
+
     @Override
     public void loop() {
 
         if(Math.abs(gamepad1.left_stick_y) > 0.2 || Math.abs(gamepad1.left_stick_x) > 0.2 || Math.abs(gamepad1.right_stick_x) > 0.2) {
-            robot.fright.setPower(-(gamepad1.left_stick_y+gamepad1.left_stick_x) + gamepad1.right_stick_x);
-            robot.bright.setPower(-(gamepad1.left_stick_y-gamepad1.left_stick_x) + gamepad1.right_stick_x);
-            robot.fleft.setPower(-(gamepad1.left_stick_y-gamepad1.left_stick_x) - gamepad1.right_stick_x);
-            robot.bleft.setPower(-(gamepad1.left_stick_y+gamepad1.left_stick_x) - gamepad1.right_stick_x);
+            robot.fright.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) + gamepad1.right_stick_x);
+            robot.bright.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) + gamepad1.right_stick_x + 0.4);
+            robot.fleft.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) - gamepad1.right_stick_x);
+            robot.bleft.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) - gamepad1.right_stick_x + 0.4);
         } else {
             robot.stop();
         }
@@ -52,55 +54,74 @@ public class FullTele extends OpMode {
             robot.dropCapstone();
         }
 
+
+
         if(gamepad2.y) {
-            robot.intake();
-        } else if (gamepad2.a) {
             robot.outtake();
+        } else if (gamepad2.a) {
+            robot.intake();
         }
 
-//        if(Math.abs(gamepad2.left_stick_y)>0.1) {
-//            leftLiftTarget+=gamepad2.left_stick_y*40;
-//        }
-//
-//        if(Math.abs(gamepad2.right_stick_y)>0.1) {
-//            rightLiftTarget+=gamepad2.right_stick_y*40;
-//        }
-//
-//        if(Math.abs(robot.leftLift.getCurrentPosition()-leftLiftTarget) > 5) {
-//            robot.leftLift.setPower((Math.abs(robot.leftLift.getCurrentPosition())-Math.abs(leftLiftTarget))/1000);
-//        } else {
-//            robot.leftLift.setPower(0.0);
-//        }
-//
-//        telemetry.addData("LeftLift encoder",robot.leftLift.getCurrentPosition());
-//        telemetry.addData("LTarget",leftLiftTarget);
-//        telemetry.addData("LPower",robot.rightLift.getPower());
-//        telemetry.addData("RightLift encoder",robot.rightLift.getCurrentPosition());
-//        telemetry.addData("RTarget",rightLiftTarget);
-//        telemetry.addData("RPower",robot.rightLift.getPower());
-//        telemetry.update();
-//
-//
-//        if (Math.abs(gamepad2.right_stick_y) > 0.1) {
-//            robot.rightLift.setPower(gamepad2.right_stick_y);
-//        } else {
-//            robot.rightLift.setPower(0.0);
+        if(gamepad2.x) {
+//            robot.intake.setPosition();
+        }
+
+        if(Math.abs(gamepad2.right_stick_y)>0.2) {
+            robot.leftLift.setPower(gamepad2.right_stick_y*0.5);
+            robot.rightLift.setPower(-gamepad2.right_stick_y*0.5);
+        } else {
+            robot.leftLift.setPower(0.0);
+            robot.rightLift.setPower(0.0);
+        }
+
+
+        if(gamepad2.dpad_left && pressed==false) {
+            pressed=true;
+
+            robot.intake();
+
+            robot.leftI.setPosition(0.9);
+            robot.rightI.setPosition(0.0);
+
+            long start = System.currentTimeMillis();
+            while(start+200 > System.currentTimeMillis()) {
+            //wait
+            }
+            robot.outtake();
+
+
+        } else if (gamepad2.dpad_right && pressed==false) {
+            pressed=true;
+
+            robot.outtake();
+
+            long start = System.currentTimeMillis();
+            while(start+2000 > System.currentTimeMillis()) {
+            }
+            robot.leftI.setPosition(0.43);
+            robot.rightI.setPosition(0.5);
+
+        } else {
+            pressed=false;
+        }
+
+
+//        if(Math.abs(robot.leftLift.getCurrentPosition())-Math.abs(leftLiftTarget) > 50) {
+//            if(robot.leftLift.getCurrentPosition()>leftLiftTarget) {
+//                robot.leftLift.setPower();
+//            }
 //        }
 
-//        if(gamepad2.y) {
-//            robot.outtake();
-//        } else if(gamepad2.a) {
-//            robot.intake();
-//        } else {
-//            robot.lintake.setPower(0.0);
-//            robot.rintake.setPower(0.0);
-//        }
+        telemetry.addData("intakeL", robot.leftI.getPosition());
+        telemetry.addData("intakeR", robot.rightI.getPosition());
+        telemetry.addData("intakeROUNDER", robot.intake.getPosition());
+        telemetry.update();
 
 
         if(gamepad2.right_bumper) {
-            robot.dropIntake();
-        } else if (gamepad2.left_bumper) {
             robot.liftIntake();
+        } else if (gamepad2.left_bumper) {
+            robot.dropIntake();
         }
     }
 }
