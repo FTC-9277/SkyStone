@@ -15,13 +15,14 @@ import robot.Gyro;
 public class SensorDebug extends OpMode {
 
     Gyro gyro;
-    ModernRoboticsI2cRangeSensor sonicTheFish;
+    ModernRoboticsI2cRangeSensor sonicTheFish,sonicTheWarthog;
     DcMotor motor;
 
     @Override
     public void init() {
         gyro = new Gyro(this);
-        sonicTheFish = hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
+        sonicTheFish = hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonicRight");
+        sonicTheWarthog = hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonicLeft");
 //        motor = hardwareMap.get(DcMotor.class,"fright");
     }
 
@@ -30,7 +31,8 @@ public class SensorDebug extends OpMode {
         telemetry.addData("Heading: ", gyro.heading());
         telemetry.addData("Roll: ", gyro.roll());
         telemetry.addData("Pitch: ", gyro.pitch());
-        telemetry.addData("Sonic the fish: ", sonicTheFish.getDistance(DistanceUnit.INCH));
+        telemetry.addData("Sonic the fish (Right): ", sonicTheFish.getDistance(DistanceUnit.INCH));
+        telemetry.addData("Sonic the warthog (Left): ", sonicTheWarthog.getDistance(DistanceUnit.INCH));
 //        telemetry.addData("Encoder", motor.getCurrentPosition());
         telemetry.update();
     }

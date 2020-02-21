@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import robot.ExplosivesRobot;
 
-//@TeleOp(name = "Mechanum Test")
+@TeleOp(name = "Strafe Test")
 public class MecanumTest extends OpMode {
 
     ExplosivesRobot robot;
@@ -18,11 +18,13 @@ public class MecanumTest extends OpMode {
 
     @Override
     public void loop() {
-        if(Math.abs(gamepad1.left_stick_y) > 0.1) {
-            robot.fleft.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x);
-            robot.fright.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
-            robot.bleft.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
-            robot.bright.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x);
+        if(Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_y) > 0.1 ) {
+            robot.fleft.setPower(gamepad1.left_stick_y);
+            robot.fright.setPower(gamepad1.right_stick_y);
+            robot.bleft.setPower(gamepad1.right_stick_y);
+            robot.bright.setPower(gamepad1.left_stick_y);
+        } else {
+            robot.stop();
         }
     }
 }

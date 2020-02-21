@@ -9,7 +9,7 @@ import robot.ExplosivesRobot;
 @Autonomous(name = "RED - Single Vision Stone Grab", group = "stone")
 public class RedVisionStoneGrab extends LinearOpMode {
 
-    //yeeeeet
+//    yeeeeet
 
     ExplosivesRobot robot;
     Sampler sample;
@@ -60,29 +60,116 @@ public class RedVisionStoneGrab extends LinearOpMode {
 
         wait(500);
 
-        robot.driveTime(1.0,1250);
+        //Lift
+        robot.leftLift.setPower(0.6);
+        robot.rightLift.setPower(0.6);
+
+        wait(400);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        robot.driveTime(1.0,1500);
 
         wait(100);
 
-        robot.gyroTurn(1.0,50);
+        //Fall
+        robot.fall();
 
-        robot.gyroTurn(1.0,100);
+        robot.leftI.setPosition(0.5);
+        robot.rightI.setPosition(-0.5);
+
+        wait(800);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        wait(1000);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(1500);
+
+        //here 2929929
+        robot.driveTime(1.0,700);
+
+        robot.stop();
+        wait(100);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
+        wait(600);
+
+        robot.stop();
+        wait(100);
+
+        robot.driveTime(1.0,2000);
+
+        robot.stop();
+        wait(100);
+
+        robot.driveTime(-1.0,1250);
+
+
+        //PARK HERE
+
+
+        robot.driveTime(-1.0,1650);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
+        wait(800);
+
+        if(sampleCount>=25) {
+            robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT,350);
+        } else {
+            robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT, 950);
+        }
+
+        robot.stop();
+
+        wait(500);
+
+        //Lift
+        robot.leftLift.setPower(0.6);
+        robot.rightLift.setPower(0.6);
+
+        wait(400);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        robot.driveTime(1.0,1000);
 
         wait(100);
 
-        robot.driveTime(1.0,650);
+        //Fall
+        robot.fall();
 
+        robot.leftI.setPosition(0.5);
+        robot.rightI.setPosition(-0.5);
+
+        wait(600);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        wait(1000);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(1500);
+
+        robot.driveTime(1.0,1150);
+
+        robot.stop();
         wait(100);
 
-        robot.gyroTurn(1.0,70);
+        robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
+        wait(650);
 
+        robot.stop();
         wait(100);
 
-        robot.driveTime(1.0, (125*sampleCount+2000));
+        robot.driveTime(1.0,3250);
 
-        wait(100);
-
-        robot.driveTime(-1.0,(100*sampleCount+900));
+        robot.driveTime(-1.0,1250);
 
     }
 

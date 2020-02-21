@@ -29,17 +29,97 @@ public class FullTele extends OpMode {
     int rightLiftTarget = 0;
 
     boolean pressed=false;
+    boolean triggerPressed=false;
+
+    final int DIVISOR=50;
+
+    double initG=0.0;
 
     @Override
     public void loop() {
 
         if(Math.abs(gamepad1.left_stick_y) > 0.2 || Math.abs(gamepad1.left_stick_x) > 0.2 || Math.abs(gamepad1.right_stick_x) > 0.2) {
             robot.fright.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) + gamepad1.right_stick_x);
-            robot.bright.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) + gamepad1.right_stick_x + 0.4);
+            robot.bright.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) + gamepad1.right_stick_x);
             robot.fleft.setPower((gamepad1.left_stick_y-gamepad1.left_stick_x) - gamepad1.right_stick_x);
-            robot.bleft.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) - gamepad1.right_stick_x + 0.4);
+            robot.bleft.setPower((gamepad1.left_stick_y+gamepad1.left_stick_x) - gamepad1.right_stick_x);
+        } else if (gamepad1.left_trigger>0.1) {
+            robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
+        } else if (gamepad1.right_bumper) {
+            robot.strafe(1.0, ExplosivesRobot.Direction.RIGHT);
         } else {
             robot.stop();
+        }
+
+        if(gamepad1.left_trigger>0.1) {
+            if(triggerPressed) {
+                //LOOP
+                double speed=gamepad1.left_trigger;
+                double targetSpeed = -0.8*speed;
+                double diff = robot.gyro()-initG;
+                telemetry.addData("GYRO: ", robot.gyro());
+                telemetry.addData("DIFF: ", diff);
+                if(diff > 0) {
+                    robot.fright.setPower(((targetSpeed) - Math.abs(diff/DIVISOR)));
+                    robot.bright.setPower(((-targetSpeed) - Math.abs(diff/DIVISOR)));
+                    robot.fleft.setPower(((-targetSpeed) + Math.abs(diff/DIVISOR)));
+                    robot.bleft.setPower(((targetSpeed) + Math.abs(diff/DIVISOR)));
+                    telemetry.addData("fright",robot.fright.getPower());
+                    telemetry.addData("fleft",robot.fleft.getPower());
+                    telemetry.addData("bright",robot.bright.getPower());
+                    telemetry.addData("bleft",robot.bleft.getPower());
+                } else {
+                    robot.fright.setPower(((targetSpeed) + Math.abs(diff/DIVISOR)));
+                    robot.bright.setPower(((-targetSpeed) + Math.abs(diff/DIVISOR)));
+                    robot.fleft.setPower(((-targetSpeed) - Math.abs(diff/DIVISOR)));
+                    robot.bleft.setPower(((targetSpeed) - Math.abs(diff/DIVISOR)));
+                    telemetry.addData("fright",robot.fright.getPower());
+                    telemetry.addData("fleft",robot.fleft.getPower());
+                    telemetry.addData("bright",robot.bright.getPower());
+                    telemetry.addData("bleft",robot.bleft.getPower());
+                }
+                telemetry.update();
+            } else {
+                //INIT
+                triggerPressed=true;
+                initG = robot.gyro();
+            }
+        } else if (gamepad1.right_trigger>0.1) {
+//            if(gamepad1.left_trigger>0.1) {
+            if(triggerPressed) {
+                //LOOP
+                double speed=-gamepad1.right_trigger;
+                double targetSpeed = -0.8*speed;
+                double diff = robot.gyro()-initG;
+                telemetry.addData("GYRO: ", robot.gyro());
+                telemetry.addData("DIFF: ", diff);
+                if(diff > 0) {
+                    robot.fright.setPower(((targetSpeed) - Math.abs(diff/DIVISOR)));
+                    robot.bright.setPower(((-targetSpeed) - Math.abs(diff/DIVISOR)));
+                    robot.fleft.setPower(((-targetSpeed) + Math.abs(diff/DIVISOR)));
+                    robot.bleft.setPower(((targetSpeed) + Math.abs(diff/DIVISOR)));
+                    telemetry.addData("fright",robot.fright.getPower());
+                    telemetry.addData("fleft",robot.fleft.getPower());
+                    telemetry.addData("bright",robot.bright.getPower());
+                    telemetry.addData("bleft",robot.bleft.getPower());
+                } else {
+                    robot.fright.setPower(((targetSpeed) + Math.abs(diff/DIVISOR)));
+                    robot.bright.setPower(((-targetSpeed) + Math.abs(diff/DIVISOR)));
+                    robot.fleft.setPower(((-targetSpeed) - Math.abs(diff/DIVISOR)));
+                    robot.bleft.setPower(((targetSpeed) - Math.abs(diff/DIVISOR)));
+                    telemetry.addData("fright",robot.fright.getPower());
+                    telemetry.addData("fleft",robot.fleft.getPower());
+                    telemetry.addData("bright",robot.bright.getPower());
+                    telemetry.addData("bleft",robot.bleft.getPower());
+                }
+                telemetry.update();
+            } else {
+                //INIT
+                triggerPressed=true;
+                initG = robot.gyro();
+            }
+        } else {
+            triggerPressed=false;
         }
 
         if(gamepad1.dpad_up) {
@@ -53,7 +133,6 @@ public class FullTele extends OpMode {
         } else if (gamepad2.dpad_up) {
             robot.dropCapstone();
         }
-
 
 
         if(gamepad2.y) {

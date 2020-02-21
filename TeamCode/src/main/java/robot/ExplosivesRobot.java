@@ -21,7 +21,7 @@ public class ExplosivesRobot {
     public Servo hook, cap, leftI, rightI;
     public DcMotor leftLift, rightLift;
 //    public CRServo intake;
-    public ModernRoboticsI2cRangeSensor sonicTheFish;
+    public ModernRoboticsI2cRangeSensor sonicTheFish,sonicTheWarthog;
 
     private ArrayList<DcMotor> allMotors = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class ExplosivesRobot {
 
         hook = opMode.hardwareMap.get(Servo.class,"hooker");
 //
-//        cap = opMode.hardwareMap.get(Servo.class, "capstone");
+        cap = opMode.hardwareMap.get(Servo.class, "marker");
 
 //        lintake = opMode.hardwareMap.get(DcMotor.class,"lintake");
 //        rintake = opMode.hardwareMap.get(DcMotor.class,"rintake");
@@ -57,7 +57,8 @@ public class ExplosivesRobot {
         leftLift = opMode.hardwareMap.get(DcMotor.class,"leftLift");
         rightLift = opMode.hardwareMap.get(DcMotor.class,"rightLift");
 
-        sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonic");
+        sonicTheFish = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonicRight");
+        sonicTheWarthog = opMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"sonicLeft");
 
 //        intake = opMode.hardwareMap.get(DcMotor.class, "intake");
 //        left = opMode.hardwareMap.get(CRServo.class, "left");
@@ -212,11 +213,11 @@ public class ExplosivesRobot {
     }
 
     public void dropCapstone() {
-//        cap.setPosition(1.0);
+        cap.setPosition(1.0);
     }
 
     public void liftCapstone() {
-//        cap.setPosition(0.1);
+        cap.setPosition(0.1);
     }
 
     public void strafeStraight(double speed, int millis) {
@@ -323,7 +324,7 @@ public class ExplosivesRobot {
 
     }
 
-    public void  turnToAngle(double speed, int target) {
+    public void turnToAngle(double speed, int target) {
         last = gyro();
         double current = gyro();
 
@@ -398,15 +399,19 @@ public class ExplosivesRobot {
                 fleft.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
                 fright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 bright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
-                opMode.telemetry.addData("Left: ", targetSpeed + Math.abs(diff/DIVISOR));
-                opMode.telemetry.addData("Right: ", targetSpeed - Math.abs(diff/DIVISOR));
+                opMode.telemetry.addData("fright",fright.getPower());
+                opMode.telemetry.addData("fleft",fleft.getPower());
+                opMode.telemetry.addData("bright",bright.getPower());
+                opMode.telemetry.addData("bleft",bleft.getPower());
             } else {
                 bleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 fleft.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 fright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
                 bright.setPower((targetSpeed + Math.abs(diff/DIVISOR)));
-                opMode.telemetry.addData("Left: ", targetSpeed - Math.abs(diff/DIVISOR));
-                opMode.telemetry.addData("Right: ", targetSpeed + Math.abs(diff/DIVISOR));
+                opMode.telemetry.addData("fright",fright.getPower());
+                opMode.telemetry.addData("fleft",fleft.getPower());
+                opMode.telemetry.addData("bright",bright.getPower());
+                opMode.telemetry.addData("bleft",bleft.getPower());
             }
             opMode.telemetry.addData("Encoder: ", avgEncoder());
             opMode.telemetry.addData("Encoder Target: ", target);
@@ -442,6 +447,43 @@ public class ExplosivesRobot {
                 bright.setPower((targetSpeed - Math.abs(diff/DIVISOR)));
                 opMode.telemetry.addData("Left: ", targetSpeed - Math.abs(diff/DIVISOR));
                 opMode.telemetry.addData("Right: ", targetSpeed + Math.abs(diff/DIVISOR));
+            }
+            opMode.telemetry.update();
+
+        }
+        stop();
+    }
+
+    public void strafeStraight(double speed, Direction direction, int millis) {
+        if(direction==Direction.RIGHT) {
+            speed = -speed;
+        }
+        long initT = System.currentTimeMillis()+millis;
+        //For some reason, targetSpeed has to be negative
+        double targetSpeed = -0.8*speed;
+        double initG = gyro();
+        while(System.currentTimeMillis() < initT) {
+            double diff = gyro()-initG;
+            opMode.telemetry.addData("GYRO: ", gyro());
+            opMode.telemetry.addData("DIFF: ", diff);
+            if(diff > 0) {
+                fright.setPower(((targetSpeed) - Math.abs(diff/DIVISOR)));
+                bright.setPower(((-targetSpeed) - Math.abs(diff/DIVISOR)));
+                fleft.setPower(((-targetSpeed) + Math.abs(diff/DIVISOR)));
+                bleft.setPower(((targetSpeed) + Math.abs(diff/DIVISOR)));
+                opMode.telemetry.addData("fright",fright.getPower());
+                opMode.telemetry.addData("fleft",fleft.getPower());
+                opMode.telemetry.addData("bright",bright.getPower());
+                opMode.telemetry.addData("bleft",bleft.getPower());
+            } else {
+                fright.setPower(((targetSpeed) + Math.abs(diff/DIVISOR)));
+                bright.setPower(((-targetSpeed) + Math.abs(diff/DIVISOR)));
+                fleft.setPower(((-targetSpeed) - Math.abs(diff/DIVISOR)));
+                bleft.setPower(((targetSpeed) - Math.abs(diff/DIVISOR)));
+                opMode.telemetry.addData("fright",fright.getPower());
+                opMode.telemetry.addData("fleft",fleft.getPower());
+                opMode.telemetry.addData("bright",bright.getPower());
+                opMode.telemetry.addData("bleft",bleft.getPower());
             }
             opMode.telemetry.update();
 

@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.R;
 
+import Vision.Orient;
 import Vision.Sampler;
 import recorder.Player;
 
@@ -20,48 +21,38 @@ public class VisionAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         waitForStart();
-        Sampler sampler = new Sampler(this);
+
+
+        Orient orienteer = new Orient(this);
         Thread.sleep(2000);
-
-//        while(opModeIsActive()) {
 //
-//        }
-
-//        playMusic();
-
-//        telemetry.addData("Sample: ", sampler.sample());
-
-
-
-//        DcMotor motor = hardwareMap.get(DcMotor.class, "intake");
-//        motor.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        int sample = sampler.sample();
-
-
-
+        double orient = orienteer.orient();
+//
+//
+//
         while(opModeIsActive()) {
-            telemetry.addData("EYES: ", sample);
+            telemetry.addData("EYES: ", orient);
+//
             telemetry.update();
-
-//            if(sample) {
-//                motor.setPower(1.0);
-//            } else {
-//                motor.setPower(-0.5);
-//            }
-
-//            Thread.sleep(1000);
-
-//            motor.setPower(0.0);
-
-            Thread.sleep(200);
-
-            sample = sampler.sample();
+//
+////            if(sample) {
+////                motor.setPower(1.0);
+////            } else {
+////                motor.setPower(-0.5);
+////            }
+//
+////            Thread.sleep(1000);
+//
+////            motor.setPower(0.0);
+//
+            Thread.sleep(50);
+//
+            orient = orienteer.orient();
         }
-
-//        mediaPlayer.stop();
-
-    }
+//
+////        mediaPlayer.stop();
+//
+//    }
 
 //    private static MediaPlayer mediaPlayer;
 //
@@ -70,5 +61,5 @@ public class VisionAuto extends LinearOpMode {
 //        mediaPlayer.setLooping(true);
 //        mediaPlayer.seekTo(71500);
 //        mediaPlayer.start();
-//    }
+    }
 }

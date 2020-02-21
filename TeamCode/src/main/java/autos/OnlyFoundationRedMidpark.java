@@ -7,15 +7,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "BLUE MID PARK - Found. Move (face backward)", group = "foundation")
-public class NewFoundationMoveBlue extends LinearOpMode {
+@Autonomous(name = "RED ONLY FOUNDATION - MIDPARK", group = "foundation")
+public class OnlyFoundationRedMidpark extends LinearOpMode {
 
     ExplosivesRobot robot;
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new ExplosivesRobot(this);
-//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 
         waitForStart();
@@ -27,7 +26,7 @@ public class NewFoundationMoveBlue extends LinearOpMode {
 
         robot.strafe(0.3, ExplosivesRobot.Direction.LEFT);
 
-        while(robot.sonicTheWarthog.getDistance(DistanceUnit.INCH) > 8.0) {
+        while(robot.sonicTheWarthog.getDistance(DistanceUnit.INCH) > 12) {
             telemetry.addData("sonic",robot.sonicTheWarthog.getDistance(DistanceUnit.INCH));
             telemetry.update();
             //wait
@@ -41,7 +40,18 @@ public class NewFoundationMoveBlue extends LinearOpMode {
         robot.hook();
         wait(1250);
 
-        robot.driveTime(1.0, 1750);
+        robot.driveTime(1.0, 1000);
+
+        robot.stop();
+        wait(100);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(2000);
+
+        robot.stop();
+        wait(100);
+
+        robot.driveTime(-1.0,550);
 
         robot.stop();
         wait(100);
@@ -49,45 +59,9 @@ public class NewFoundationMoveBlue extends LinearOpMode {
         robot.unhook();
         wait(1000);
 
-        robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
-        wait(1250);
+        robot.strafeStraight(1.0, ExplosivesRobot.Direction.RIGHT,250);
 
-        robot.stop();
-        wait(100);
-
-        robot.driveTime(1.0,3500);
-
-        robot.stop();
-        wait(100);
-
-        robot.driveTime(-1.0,1500);
-
-        robot.stop();
-        wait(100);
-
-        robot.strafe(1.0, ExplosivesRobot.Direction.RIGHT);
-        wait(1000);
-
-        robot.stop();
-        wait(100);
-
-        robot.driveTime(0.5,3000);
-
-        robot.stop();
-        wait(100);
-
-        robot.driveTime(-1.0,350);
-
-        robot.stop();
-        wait(100);
-
-        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
-        wait(800);
-
-        robot.stop();
-        wait(100);
-
-        robot.driveTime(-1.0,2500);
+        robot.driveTime(1.0,2000);
 
         robot.stop();
 

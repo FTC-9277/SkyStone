@@ -15,19 +15,18 @@ public class OnlyFoundationBlueMidpark extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new ExplosivesRobot(this);
-//        robot.setDriveTrainType(ExplosivesRobot.DriveTrainType.MECANUM);
         robot.init();
 
         waitForStart();
 
-        robot.driveTime(-1.0,500);
+        robot.driveTime(-1.0,750);
 
         robot.stop();
         wait(100);
 
         robot.strafe(0.3, ExplosivesRobot.Direction.RIGHT);
 
-        while(robot.sonicTheFish.getDistance(DistanceUnit.INCH) > 8.0) {
+        while(robot.sonicTheFish.getDistance(DistanceUnit.INCH) > 12) {
             telemetry.addData("sonic",robot.sonicTheFish.getDistance(DistanceUnit.INCH));
             telemetry.update();
             //wait
@@ -41,7 +40,18 @@ public class OnlyFoundationBlueMidpark extends LinearOpMode {
         robot.hook();
         wait(1250);
 
-        robot.driveTime(1.0, 1750);
+        robot.driveTime(1.0, 1000);
+
+        robot.stop();
+        wait(100);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
+        wait(2350);
+
+        robot.stop();
+        wait(100);
+
+        robot.driveTime(-1.0,1000);
 
         robot.stop();
         wait(100);
@@ -49,20 +59,11 @@ public class OnlyFoundationBlueMidpark extends LinearOpMode {
         robot.unhook();
         wait(1000);
 
-        robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
-        wait(1250);
+//        robot.strafeStraight(1.0, ExplosivesRobot.Direction.RIGHT,1500);
+//
+        robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT,200);
 
-        robot.stop();
-        wait(100);
-
-        robot.driveTime(1.0,2000);
-
-        robot.driveTime(-1.0,750);
-
-        robot.strafe(1.0, ExplosivesRobot.Direction.LEFT);
-        wait(800);
-
-
+        robot.driveTime(1.0,2250);
 
         robot.stop();
 

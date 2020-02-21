@@ -20,7 +20,7 @@ public class NewFoundationMoveRed extends LinearOpMode {
 
         waitForStart();
 
-        robot.driveTime(1.0,750);
+        robot.driveTime(-1.0,750);
 
         robot.stop();
         wait(100);
@@ -28,15 +28,10 @@ public class NewFoundationMoveRed extends LinearOpMode {
         robot.strafe(0.3, ExplosivesRobot.Direction.RIGHT);
 
         while(robot.sonicTheFish.getDistance(DistanceUnit.INCH) > 15.0) {
-            telemetry.addData("sonic",robot.sonicTheFish.getDistance(DistanceUnit.INCH));
+            telemetry.addData("sonic",robot.sonicTheWarthog.getDistance(DistanceUnit.INCH));
             telemetry.update();
             //wait
         }
-
-        robot.stop();
-        wait(100);
-
-        robot.gyroTurn(1.0,180);
 
         robot.stop();
         wait(100);
