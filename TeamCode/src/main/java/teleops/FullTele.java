@@ -3,6 +3,8 @@ package teleops;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import java.io.IOException;
+
 import Vision.Sampler;
 import recorder.Player;
 import robot.ExplosivesRobot;
@@ -20,6 +22,9 @@ public class FullTele extends OpMode {
         robot.leftI.setPosition(0.44);
         robot.rightI.setPosition(0.49);
 //        sampler = new Sampler(this);
+
+        initalLeftLiftEncoder = robot.leftLift.getCurrentPosition();
+        initalRightLiftEncoder = robot.rightLift.getCurrentPosition();
     }
 
 //    int vision = -12;
@@ -34,6 +39,9 @@ public class FullTele extends OpMode {
     final int DIVISOR=50;
 
     double initG=0.0;
+
+    int initalLeftLiftEncoder=0;
+    int initalRightLiftEncoder=0;
 
     @Override
     public void loop() {
@@ -146,8 +154,8 @@ public class FullTele extends OpMode {
         }
 
         if(Math.abs(gamepad2.right_stick_y)>0.2) {
-            robot.leftLift.setPower(gamepad2.right_stick_y*0.5);
-            robot.rightLift.setPower(-gamepad2.right_stick_y*0.5);
+            robot.leftLift.setPower(gamepad2.right_stick_y * 0.5);
+            robot.rightLift.setPower(-gamepad2.right_stick_y * 0.5);
         } else {
             robot.leftLift.setPower(0.0);
             robot.rightLift.setPower(0.0);
@@ -157,28 +165,27 @@ public class FullTele extends OpMode {
         if(gamepad2.dpad_left && pressed==false) {
             pressed=true;
 
-            robot.intake();
+            robot.intake.setPosition(0.5);
 
-            robot.leftI.setPosition(0.9);
-            robot.rightI.setPosition(0.0);
+            wait(200);
 
-            long start = System.currentTimeMillis();
-            while(start+200 > System.currentTimeMillis()) {
-            //wait
-            }
-            robot.outtake();
+            robot.leftI.setPosition(1.0);
+            robot.rightI.setPosition(-0.1);
+
+            wait(600);
+
+            robot.intake.setPosition(1.0);
 
 
         } else if (gamepad2.dpad_right && pressed==false) {
             pressed=true;
 
-            robot.outtake();
-
-            long start = System.currentTimeMillis();
-            while(start+2000 > System.currentTimeMillis()) {
-            }
             robot.leftI.setPosition(0.43);
             robot.rightI.setPosition(0.5);
+
+            wait(200);
+
+            robot.intake.setPosition(0.5);
 
         } else {
             pressed=false;
@@ -191,9 +198,11 @@ public class FullTele extends OpMode {
 //            }
 //        }
 
-        telemetry.addData("intakeL", robot.leftI.getPosition());
-        telemetry.addData("intakeR", robot.rightI.getPosition());
+        telemetry.addData("left lift", robot.leftLift.getCurrentPosition());
+        telemetry.addData("right lift", robot.rightLift.getCurrentPosition());
         telemetry.addData("intakeROUNDER", robot.intake.getPosition());
+        telemetry.addData("left intake",robot.leftI.getPosition());
+        telemetry.addData("right intake",robot.rightI.getPosition());
         telemetry.update();
 
 
@@ -201,6 +210,14 @@ public class FullTele extends OpMode {
             robot.liftIntake();
         } else if (gamepad2.left_bumper) {
             robot.dropIntake();
+        }
+    }
+
+    public void wait(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

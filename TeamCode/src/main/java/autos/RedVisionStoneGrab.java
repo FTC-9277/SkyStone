@@ -3,6 +3,8 @@ package autos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 import Vision.Sampler;
 import robot.ExplosivesRobot;
 
@@ -117,15 +119,17 @@ public class RedVisionStoneGrab extends LinearOpMode {
         robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
         wait(800);
 
-        if(sampleCount>=25) {
-            robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT,350);
-        } else {
-            robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT, 950);
-        }
+        robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT, 950);
 
         robot.stop();
 
         wait(500);
+
+        //CHANGE BASED ON SIDE COLOUR
+        //warthog is left
+        if(robot.sonicTheWarthog.getDistance(DistanceUnit.INCH) < 3) {
+            robot.strafeStraight(1.0, ExplosivesRobot.Direction.RIGHT, 350);
+        }
 
         //Lift
         robot.leftLift.setPower(0.6);

@@ -90,7 +90,7 @@ public class ExplosivesRobot {
         rightI.setPosition(0.5);
 
         unhook();
-        liftCapstone();
+//        liftCapstone();
         intake.setPosition(0.75);
     }
 
@@ -528,7 +528,7 @@ public class ExplosivesRobot {
         intake.setPosition(intake.getPosition()+0.02);
     }
 
-    final double INTAKE_MOVE_CONSTANT = 0.01;
+    final double INTAKE_MOVE_CONSTANT = 0.015;
 
     public void dropIntake() {
 //        if(leftI.getPosition() < 0.94) {
@@ -538,7 +538,7 @@ public class ExplosivesRobot {
     }
 
     public void liftIntake() {
-        if(leftI.getPosition() > 0.44) {
+        if(leftI.getPosition() > 0.25) {
             leftI.setPosition(leftI.getPosition() - INTAKE_MOVE_CONSTANT);
             rightI.setPosition(rightI.getPosition() + INTAKE_MOVE_CONSTANT);
         }
