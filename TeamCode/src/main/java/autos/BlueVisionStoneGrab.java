@@ -3,10 +3,12 @@ package autos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 import Vision.Sampler;
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "BLUE - Single Vision Stone Grab", group = "stone")
+@Autonomous(name = "RED - Vision Stone Grab", group = "stone")
 public class BlueVisionStoneGrab extends LinearOpMode {
 
     ExplosivesRobot robot;
@@ -26,15 +28,13 @@ public class BlueVisionStoneGrab extends LinearOpMode {
 
         robot.driveTime(0.5,750);
 
-        wait(500);
+        wait(100);
 
         int sampleCount = 0;
 
         while(opModeIsActive()) {
             telemetry.addData("EYESSSSS: ", stone);
             telemetry.update();
-
-
 
             stone = sample.sample();
             sampleCount++;
@@ -57,29 +57,121 @@ public class BlueVisionStoneGrab extends LinearOpMode {
 //        wait(250);
 
         robot.stop();
-        wait(100);
+
+        wait(500);
+
+        //Lift
+        robot.leftLift.setPower(0.6);
+        robot.rightLift.setPower(0.6);
+
+        wait(400);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
 
         robot.driveTime(1.0,1500);
 
         wait(100);
 
-        robot.gyroTurn(1.0,190);
+        //Fall
+        robot.fall();
 
-        wait(200);
+        robot.leftI.setPosition(0.5);
+        robot.rightI.setPosition(-0.5);
 
-        robot.driveTime(1.0,500);
+        wait(800);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        wait(1000);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
+        wait(1500);
+
+        //here 2929929
+        robot.driveTime(1.0,700);
+
+        robot.stop();
+        wait(100);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(600);
+
+        robot.stop();
+        wait(100);
+
+        robot.driveTime(1.0,2000);
+
+        robot.stop();
+        wait(100);
+
+        robot.driveTime(-1.0,1250);
+
+
+        //PARK HERE
+
+
+        robot.driveTime(-1.0,1650);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(800);
+
+        robot.strafeStraight(1.0, ExplosivesRobot.Direction.RIGHT, 950);
+
+        robot.stop();
+
+        wait(500);
+
+        //CHANGE BASED ON SIDE COLOUR
+        //warthog is left
+        if(robot.sonicTheFish.getDistance(DistanceUnit.INCH) < 3) {
+            robot.strafeStraight(1.0, ExplosivesRobot.Direction.LEFT, 350);
+        }
+
+        //Lift
+        robot.leftLift.setPower(0.6);
+        robot.rightLift.setPower(0.6);
+
+        wait(400);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        robot.driveTime(1.0,1000);
 
         wait(100);
 
-        robot.gyroTurn(1.0,90);
+        //Fall
+        robot.fall();
 
+        robot.leftI.setPosition(0.5);
+        robot.rightI.setPosition(-0.5);
+
+        wait(600);
+
+        robot.leftLift.setPower(0.0);
+        robot.rightLift.setPower(0.0);
+
+        wait(1000);
+
+        robot.turn(1.0, ExplosivesRobot.Direction.RIGHT);
+        wait(1500);
+
+        robot.driveTime(1.0,1150);
+
+        robot.stop();
         wait(100);
 
-        robot.driveTime(1.0, (125*sampleCount+2000));
+        robot.turn(1.0, ExplosivesRobot.Direction.LEFT);
+        wait(650);
 
+        robot.stop();
         wait(100);
 
-        robot.driveTime(-1.0,(125*sampleCount+900));
+        robot.driveTime(1.0,3250);
+
+        robot.driveTime(-1.0,1250);
 
     }
 

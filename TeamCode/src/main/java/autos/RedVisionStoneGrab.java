@@ -8,10 +8,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import Vision.Sampler;
 import robot.ExplosivesRobot;
 
-@Autonomous(name = "RED - Single Vision Stone Grab", group = "stone")
+@Autonomous(name = "RED - Vision Stone Grab", group = "stone")
 public class RedVisionStoneGrab extends LinearOpMode {
-
-//    yeeeeet
 
     ExplosivesRobot robot;
     Sampler sample;
